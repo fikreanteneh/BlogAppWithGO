@@ -9,7 +9,7 @@ type Blog struct {
 
 
 type BlogRepository interface {
-	GetAll() (*[]*Blog, error)
+	GetAll(param string) (*[]*Blog, error)
 	GetByID(id string) (*Blog, error)
 	GetByUserId(id string) (*[]*Blog, error)
 	Create(b Blog) (*Blog,error)

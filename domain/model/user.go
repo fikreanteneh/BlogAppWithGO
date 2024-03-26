@@ -1,11 +1,11 @@
 package model
 
 type UserCreate struct {
-	Username       string `json:"username"`
-	Password       string `json:"password"`
-	Email          string `json:"email"`
-	Name           string `json:"name"`
-	Bio            string `json:"bio"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Name     string `json:"name"`
+	Bio      string `json:"bio"`
 }
 
 type UserLogin struct {
@@ -34,8 +34,8 @@ type UserUpdateProfilePicture struct {
 	ProfilePicture []byte `json:"profile_picture"`
 }
 
-type UserList struct {
-	Username       string `json:"username"`
-	Name           string `json:"name"`
-	Bio            string `json:"bio"`
+type UserInfo struct {
+	Username string `json:"username"`
+	Name     string `json:"name"`
+	Bio      string `json:"bio"`
 }

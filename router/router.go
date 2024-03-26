@@ -13,9 +13,15 @@ import (
 )
 
 func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, gin *gin.Engine) {
-	var userRepository = repository.NewUserRepository(db, "users")
-	userUseCase := usecase.NewAuthUseCase(env, &userRepository)
-	var authController = controller.NewAuthController(env, &userUseCase)
+	userRepository := repository.NewUserRepository(db, "users")
+
+
+
+	authUseCase := usecase.NewAuthUseCase(env, &userRepository )
+	authController := controller.NewAuthController(env, &authUseCase)
+
+	profileUsecase := usecase.NewProfileUseCase(env, &userRepository)
+	profileController :=  controller.NewProfileController(env, &profileUsecase)
 
 	publicRouter := gin.Group("auth")
 	publicRouter.POST("/register", authController.Register)
@@ -24,13 +30,14 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 
 	profileRouter := gin.Group("profile")
 	profileRouter.Use(middleware.AuthMiddleware(env.JwtSecret))
-	profileRouter.GET("/")
-	profileRouter.PUT("/")
-	profileRouter.PUT("/updatePassword") 
-	profileRouter.PUT("/updateEmail") 
-	profileRouter.PUT("/updateUsername") 
-	profileRouter.PUT("/updateProfilePicture")
-	profileRouter.DELETE("/")
+	profileRouter.GET("/", profileController.GetProfile)
+	profileRouter.PUT("/", profileController.UpdateProfile)
+	profileRouter.DELETE("/", profileController.DeleteProfile)
+	profileRouter.PUT("/updatePassword", profileController.UpdatePassword) 
+	profileRouter.PUT("/updateEmail", profileController.UpdateEmail) 
+	profileRouter.PUT("/updateUsername", profileController.UpdateUsername) 
+	//TODO: Implement UpdateProfilePicture
+	profileRouter.PUT("/updateProfilePicture", profileController.UpdateProfilePicture)
 
 	userRouter := gin.Group("user")
 	userRouter.Use(middleware.AuthMiddleware(env.JwtSecret))

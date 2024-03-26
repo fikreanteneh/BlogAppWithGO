@@ -24,7 +24,7 @@ func NewAuthUseCase(environment *config.Environment, userRepository *domain.User
 }
 
 // AdminRegister implements usecase.AuthUseCase.
-func (a *AuthUseCase) AdminRegister(userCreate *model.UserCreate, currUser *model.AuthenticatedUser) (*model.UserList, error) {
+func (a *AuthUseCase) AdminRegister(userCreate *model.UserCreate, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
 	//TODO : Authorization Handling
 	//TODO : Validation Handling
 
@@ -45,7 +45,7 @@ func (a *AuthUseCase) AdminRegister(userCreate *model.UserCreate, currUser *mode
 		return nil, err
 	}
 
-	return &model.UserList{
+	return &model.UserInfo{
 		Username : createdAdmin.Username,
 		Name      : createdAdmin.Name,
 		Bio          : createdAdmin.Bio,
@@ -75,7 +75,7 @@ func (a *AuthUseCase) Login(userLogin *model.UserLogin) (string, error) {
 }
 
 // Register implements usecase.AuthUseCase.
-func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserList, error) {
+func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserInfo, error) {
 	//TODO : Validation Handling
 	password, err := utils.EncryptPassword(userCreate.Password)
 	if err != nil {
@@ -94,7 +94,7 @@ func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserList, e
 		return nil, err
 	}
 
-	return &model.UserList{
+	return &model.UserInfo{
 		Username : createdAdmin.Username,
 		Name      : createdAdmin.Name,
 		Bio          : createdAdmin.Bio,

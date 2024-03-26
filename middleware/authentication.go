@@ -52,10 +52,6 @@ func AuthMiddleware(secret string) gin.HandlerFunc {
             c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "User ID not found in token"})
             return
         }
-        if !ok {
-            c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Username not found in token"})
-            return
-        }
         c.Set("AuthenticatedUser", &model.AuthenticatedUser{
             UserID: UserID,
             Email: Email,

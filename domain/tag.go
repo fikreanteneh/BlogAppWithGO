@@ -9,7 +9,7 @@ type Tag  struct {
 
 type TagRepository interface {
 	Create(tag Tag) (*Tag, error)
-	GetAll() (*[]*Tag, error)
+	GetAll(param string) (*[]*Tag, error)
 	GetByID(tagID string) (*Tag, error)
 	Update(tag Tag) (*Tag, error)
 	Delete(tagID string) (*Tag, error)

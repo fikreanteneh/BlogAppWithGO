@@ -1,8 +1,6 @@
 package middleware
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +13,6 @@ type Response struct {
 }
 
 func SuccessResponseHandler(c *gin.Context, statusCode int, message string, data interface{} ) {
-	fmt.Println("SuccessResponseHandler ======= ", data)
 	response := Response{
 		StatusCode: statusCode,
 		Success: true,

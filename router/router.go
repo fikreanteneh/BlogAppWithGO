@@ -1,8 +1,11 @@
 package router
 
 import (
-	"TaskManger/config"
-	"TaskManger/middleware"
+	"BlogApp/config"
+	"BlogApp/controller"
+	"BlogApp/domain"
+	"BlogApp/middleware"
+	"BlogApp/usecase"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -10,10 +13,25 @@ import (
 )
 
 func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, gin *gin.Engine) {
+	var userRepository domain.UserRepository
+	var blogRepository domain.BlogRepository
+	var tagRepository domain.TagRepository
+	var notificationRepository domain.NotificationRepository
+	var blogRatingRepository domain.BlogRatingRepository
+	var blogShareRepository domain.ShareRepository
+	var blogCommentRepository domain.CommentRepository
+	var blogLikeRepository domain.LikeRepository
+	var tagBlogRepository domain.TagRepository
+	var followRepository domain.FollowRepository
+
+	userUseCase := usecase.NewAuthUseCase(env, &userRepository)
+
+	var authController = controller.NewAuthController(env, &userUseCase)
+
 	publicRouter := gin.Group("auth")
-	publicRouter.POST("/register")
-	publicRouter.POST("/adminRegister")
-	publicRouter.POST("/login")
+	publicRouter.POST("/register", authController.Register)
+	publicRouter.POST("/login", authController.Login)
+	publicRouter.POST("/adminRegister", authController.AdminRegister)
 
 	profileRouter := gin.Group("profile")
 	profileRouter.Use(middleware.AuthMiddleware(env.JwtSecret))

@@ -3,8 +3,8 @@ package router
 import (
 	"BlogApp/config"
 	"BlogApp/controller"
-	"BlogApp/domain"
 	"BlogApp/middleware"
+	"BlogApp/repository"
 	"BlogApp/usecase"
 	"time"
 
@@ -13,19 +13,8 @@ import (
 )
 
 func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, gin *gin.Engine) {
-	var userRepository domain.UserRepository
-	var blogRepository domain.BlogRepository
-	var tagRepository domain.TagRepository
-	var notificationRepository domain.NotificationRepository
-	var blogRatingRepository domain.BlogRatingRepository
-	var blogShareRepository domain.ShareRepository
-	var blogCommentRepository domain.CommentRepository
-	var blogLikeRepository domain.LikeRepository
-	var tagBlogRepository domain.TagRepository
-	var followRepository domain.FollowRepository
-
+	var userRepository = repository.NewUserRepository(db, "users")
 	userUseCase := usecase.NewAuthUseCase(env, &userRepository)
-
 	var authController = controller.NewAuthController(env, &userUseCase)
 
 	publicRouter := gin.Group("auth")

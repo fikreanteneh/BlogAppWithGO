@@ -13,7 +13,7 @@ type User struct {
     Password       string    `json:"password" bson:"password"`
     Name           string    `json:"name" bson:"name"`
     Bio            string    `json:"bio" bson:"bio"`
-    ProfilePicture string    `json:"profile_picture" bson:"profile_picture"`
+    ProfilePicture []byte    `json:"profile_picture" bson:"profile_picture"`
     Role           string    `json:"role" bson:"role"`
     CreatedAt      time.Time `json:"timestamp" bson:"timestamp"`
 }

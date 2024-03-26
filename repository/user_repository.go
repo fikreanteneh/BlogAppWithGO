@@ -3,7 +3,7 @@ package repository
 import (
 	"BlogApp/domain"
 	"context"
-	"errors"
+	// "errors"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -32,20 +32,15 @@ func (u *UserRepository) Create(c context.Context, user *domain.User) (*domain.U
 		return nil, err
 	}
 
-		// Extract the inserted user ID from the result
-		insertedID, ok := result.InsertedID.(primitive.ObjectID)
-		if !ok {
-			return nil, errors.New("failed to get inserted ID")
-		}
+  newUser := &domain.User{
+    UserID:           result.InsertedID.(primitive.ObjectID).Hex(),
+    Email:            user.Email,
+    Name:             user.Name,
+    Bio:              user.Bio,
+    Role:             user.Role,
+    CreatedAt:        time.Now(),
+  }
 
-	newUser := &domain.User{
-		UserID:           insertedID.Hex(),
-		Email:            user.Email,
-		Name:             user.Name,
-		Bio:              user.Bio,
-		Role:             user.Role,
-		CreatedAt:        time.Now(),
-	}
 
 	return newUser, nil
 }

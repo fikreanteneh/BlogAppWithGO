@@ -1,8 +1,11 @@
 package router
 
 import (
-	"TaskManger/config"
-	"TaskManger/middleware"
+	"BlogApp/config"
+	"BlogApp/controller"
+	"BlogApp/middleware"
+	"BlogApp/repository"
+	"BlogApp/usecase"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -10,10 +13,14 @@ import (
 )
 
 func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, gin *gin.Engine) {
+	var userRepository = repository.NewUserRepository(db, "users")
+	userUseCase := usecase.NewAuthUseCase(env, &userRepository)
+	var authController = controller.NewAuthController(env, &userUseCase)
+
 	publicRouter := gin.Group("auth")
-	publicRouter.POST("/register")
-	publicRouter.POST("/adminRegister")
-	publicRouter.POST("/login")
+	publicRouter.POST("/register", authController.Register)
+	publicRouter.POST("/login", authController.Login)
+	publicRouter.POST("/adminRegister", authController.AdminRegister)
 
 	profileRouter := gin.Group("profile")
 	profileRouter.Use(middleware.AuthMiddleware(env.JwtSecret))

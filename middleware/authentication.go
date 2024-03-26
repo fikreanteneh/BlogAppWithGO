@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+    "BlogApp/domain/model"
 )
 
 func AuthMiddleware(secret string) gin.HandlerFunc {
@@ -41,18 +42,26 @@ func AuthMiddleware(secret string) gin.HandlerFunc {
         }
 
         // Set user ID and username in the Gin context
-        userID, ok := claims["id"].(string)
+        UserID, ok := claims["id"].(string)
+        Email, ok := claims["email"].(string)
+        Username, ok := claims["username"].(string)
+        Role, ok := claims["role"].(string)
+
+
         if !ok {
             c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "User ID not found in token"})
             return
         }
-        username, ok := claims["username"].(string)
         if !ok {
             c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Username not found in token"})
             return
         }
-        c.Set("userID", userID)
-        c.Set("username", username)
+        c.Set("AuthenticatedUser", &model.AuthenticatedUser{
+            UserID: UserID,
+            Email: Email,
+            Username: Username,
+            Role: Role,
+        })
 
         c.Next()
     }

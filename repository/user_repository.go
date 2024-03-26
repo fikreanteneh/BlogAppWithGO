@@ -25,20 +25,33 @@ func NewUserRepository(db *mongo.Database, collection string) domain.UserReposit
 // Create implements domain.UserRepository.
 func (u *UserRepository) Create(c context.Context, user *domain.User) (*domain.User, error) {
   user.UserID = primitive.NewObjectID().Hex()
-  user.CreatedAt = time.Now()
-    _, err := u.database.Collection(u.collection).InsertOne(c, *user)
-    if err != nil{ 
-      return nil, err
-    }
-  return user, nil
+
+   result, err := u.database.Collection(u.collection).InsertOne(c, user)
+  if err != nil{ 
+    return nil, err
+  }
+
+  newUser := &domain.User{
+    UserID:           result.InsertedID.(primitive.ObjectID).Hex(),
+    Email:            user.Email,
+    Name:             user.Name,
+    Bio:              user.Bio,
+    Role:             user.Role,
+    CreatedAt:        time.Now(),
+  }
+
+  return newUser, nil
 }
 
 
 // Delete implements domain.UserRepository.
 func (u *UserRepository) Delete(c context.Context, user *domain.User) (*domain.User, error) {
-  filter := bson.M{"_id": user.UserID}
-  _, err := u.database.Collection(u.collection).DeleteOne(c, filter)
-  return user, err
+	filter := bson.M{"_id": user.UserID}
+	_, err := u.database.Collection(u.collection).DeleteOne(c, filter)
+	if err != nil {
+        return nil, err
+    }
+	return user, nil
 }
 
 // GetAll implements domain.UserRepository.
@@ -62,6 +75,7 @@ func (u *UserRepository) GetAll(c context.Context, param string) (*[]*domain.Use
     for cursor.Next(c) {
         var user domain.User
         if err := cursor.Decode(&user); err != nil {
+			cursor.Close(c)
             return nil, err
         }
         users = append(users, &user)
@@ -78,49 +92,61 @@ func (u *UserRepository) GetAll(c context.Context, param string) (*[]*domain.Use
 
 // GetByEmail implements domain.UserRepository.
 func (u *UserRepository) GetByEmail(c context.Context, email string) (*domain.User, error) {
-  filter := bson.M{"email": email}
-  result := u.database.Collection(u.collection).FindOne(c, filter)
-  var user domain.User
-  err := result.Decode(&user);
-  return &user, err
+	filter := bson.M{"email": email}
+	result := u.database.Collection(u.collection).FindOne(c, filter)
+	var user domain.User
+	err := result.Decode(&user);
+	if err != nil {
+		return nil, err	
+	}
+	return &user, nil
 }
 
 // GetById implements domain.UserRepository.
 func (u *UserRepository) GetById(c context.Context, id string) (*domain.User, error) {
-  filter := bson.M{"_id": id}
-  result := u.database.Collection(u.collection).FindOne(c, filter)
-  var user domain.User
-  err := result.Decode(&user);
-  return &user, err
+	filter := bson.M{"_id": id}
+	result := u.database.Collection(u.collection).FindOne(c, filter)		
+	var user domain.User
+	err := result.Decode(&user);
+	if err != nil {
+		return nil, err	
+	}
+	return &user, nil
 }
 
 // GetByUsername implements domain.UserRepository.
 func (u *UserRepository) GetByUsername(c context.Context, username string) (*domain.User, error) {
-  filter := bson.M{"username": username}
-  result := u.database.Collection(u.collection).FindOne(c, filter)
-  var user domain.User
-  err := result.Decode(&user);
-  return &user, err
+	filter := bson.M{"username": username}
+	result := u.database.Collection(u.collection).FindOne(c, filter)
+	var user domain.User
+	err := result.Decode(&user);
+	if err != nil {
+		return nil, err	
+	}
+	return &user, nil
 }
 
 // GetRole implements domain.UserRepository.
 func (u *UserRepository) GetRole(c context.Context, username string) (string, error) {
-  filter := bson.M{"username": username}
-  result := u.database.Collection(u.collection).FindOne(c, filter)
-  var user domain.User
-  err := result.Decode(&user);
-  return user.Role, err
+	filter := bson.M{"username": username}
+	result := u.database.Collection(u.collection).FindOne(c, filter)
+	var user domain.User
+	err := result.Decode(&user);
+	if err != nil {
+		return "", err	
+	}
+	return user.Role, nil
 }
 
 // UpdateEmail implements domain.UserRepository.
 func (u *UserRepository) UpdateEmail(c context.Context, user *domain.User) (*domain.User, error) {
 	filter := bson.M{"_id": user.UserID}
-    update := bson.M{"$set": bson.M{"email": user.Email}}
-    _, err := u.database.Collection(u.collection).UpdateOne(c, filter, update)
-    if err != nil {
-        return nil, err
-    }
-    return user, nil
+	update := bson.M{"$set": bson.M{"email": user.Email}}
+	_, err := u.database.Collection(u.collection).UpdateOne(c, filter, update)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }
 
 // UpdatePassword implements domain.UserRepository.

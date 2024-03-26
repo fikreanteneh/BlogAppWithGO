@@ -37,6 +37,5 @@ type UserUpdateProfilePicture struct {
 type UserList struct {
 	Username       string `json:"username"`
 	Name           string `json:"name"`
-	ProfilePicture []byte `json:"profile_picture"`
 	Bio            string `json:"bio"`
 }

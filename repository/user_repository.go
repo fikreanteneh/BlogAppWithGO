@@ -1,13 +1,13 @@
 package repository
 
 import (
-  "BlogApp/domain"
-  "context"
-  "time"
+	"BlogApp/domain"
+	"context"
+	"time"
 
-  "go.mongodb.org/mongo-driver/bson"
-  "go.mongodb.org/mongo-driver/bson/primitive"
-  "go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type UserRepository struct {
@@ -25,22 +25,12 @@ func NewUserRepository(db *mongo.Database, collection string) domain.UserReposit
 // Create implements domain.UserRepository.
 func (u *UserRepository) Create(c context.Context, user *domain.User) (*domain.User, error) {
   user.UserID = primitive.NewObjectID().Hex()
-
-   result, err := u.database.Collection(u.collection).InsertOne(c, user)
-  if err != nil{ 
-    return nil, err
-  }
-
-  newUser := &domain.User{
-    UserID:           result.InsertedID.(primitive.ObjectID).Hex(),
-    Email:            user.Email,
-    Name:             user.Name,
-    Bio:              user.Bio,
-    Role:             user.Role,
-    CreatedAt:        time.Now(),
-  }
-
-  return newUser, nil
+  user.CreatedAt = time.Now()
+    _, err := u.database.Collection(u.collection).InsertOne(c, *user)
+    if err != nil{ 
+      return nil, err
+    }
+  return user, nil
 }
 
 

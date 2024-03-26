@@ -37,8 +37,8 @@ func (a *AuthUseCase) AdminRegister(userCreate *model.UserCreate, currUser *mode
 		Email:    userCreate.Email,
 		Password: password,
 		Role:     "ADMIN",
-		Bio: 		  userCreate.Bio,
-
+		Bio: 	userCreate.Bio,
+		Name: userCreate.Name,
 	}
 	createdAdmin, err := a.UserRepository.Create(a.context, admin)
 	if err != nil {
@@ -48,7 +48,6 @@ func (a *AuthUseCase) AdminRegister(userCreate *model.UserCreate, currUser *mode
 	return &model.UserList{
 		Username : createdAdmin.Username,
 		Name      : createdAdmin.Name,
-		ProfilePicture: createdAdmin.ProfilePicture,
 		Bio          : createdAdmin.Bio,
 	}, nil
 }
@@ -78,7 +77,7 @@ func (a *AuthUseCase) Login(userLogin *model.UserLogin) (string, error) {
 // Register implements usecase.AuthUseCase.
 func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserList, error) {
 	//TODO : Validation Handling
-		password, err := utils.EncryptPassword(userCreate.Password)
+	password, err := utils.EncryptPassword(userCreate.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +86,8 @@ func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserList, e
 		Email:    userCreate.Email,
 		Password: password,
 		Role:     "USER",
-		Bio: 		  userCreate.Bio,
-
+		Bio: 	userCreate.Bio,
+		Name: userCreate.Name,
 	}
 	createdAdmin, err := a.UserRepository.Create(a.context, admin)
 	if err != nil {
@@ -98,7 +97,6 @@ func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserList, e
 	return &model.UserList{
 		Username : createdAdmin.Username,
 		Name      : createdAdmin.Name,
-		ProfilePicture: createdAdmin.ProfilePicture,
 		Bio          : createdAdmin.Bio,
 	}, nil
 }

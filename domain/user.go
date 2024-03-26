@@ -13,9 +13,9 @@ type User struct {
     Password       string    `json:"password" bson:"password"`
     Name           string    `json:"name" bson:"name"`
     Bio            string    `json:"bio" bson:"bio"`
-    ProfilePicture []byte    `json:"profile_picture" bson:"profile_picture"`
     Role           string    `json:"role" bson:"role"`
     CreatedAt      time.Time `json:"timestamp" bson:"timestamp"`
+    ProfilePicture []byte    `json:"profile_picture" bson:"profile_picture"`
 }
 
 type UserRepository interface {

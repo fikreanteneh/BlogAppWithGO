@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"TaskManger/domain"
+	"BlogApp/domain"
 	"context"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -14,7 +14,7 @@ type TaskRepository struct {
 	collection string
 }
 
-func NewTaskRepository(db *mongo.Database, collection string) domain.TaskRepository {
+func NewTaskRepository(db *mongo.Database, collection string) *domain.TaskRepository {
 	return &TaskRepository{
 		database:   db,
 		collection: collection,
@@ -69,7 +69,7 @@ func (t *TaskRepository) GetByUserId(c context.Context, userId string) (*[]*doma
 
 // Update implements domain.TaskRepository.
 func (t *TaskRepository) Update(c context.Context, task *domain.Task) (*domain.Task, error) {
-	    filter := bson.M{"_id": task.Id}
+	filter := bson.M{"_id": task.Id}
     update := bson.M{"$set": task}
     _, err := t.database.Collection(t.collection).UpdateOne(c, filter, update)
     if err != nil {

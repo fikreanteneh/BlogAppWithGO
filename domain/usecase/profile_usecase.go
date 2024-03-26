@@ -9,4 +9,5 @@ type ProfileUseCase interface {
 	UpdateUsername(updated *model.UserUpdateUsername, currUser *model.AuthenticatedUser) (*model.UserInfo, error)
 	UpdatePassword(updated *model.UserUpdatePassword, currUser *model.AuthenticatedUser) (*model.UserInfo, error)
 	UpdateEmail(updated *model.UserUpdateEmail, currUser *model.AuthenticatedUser) (*model.UserInfo, error)
+	//TODO: add the profile picture update method
 }

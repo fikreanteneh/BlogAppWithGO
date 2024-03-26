@@ -37,7 +37,6 @@ func (a *AuthUseCase) AdminRegister(userCreate *model.UserCreate, currUser *mode
 		Email:    userCreate.Email,
 		Password: password,
 		Role:     "ADMIN",
-		ProfilePicture: userCreate.ProfilePicture,
 		Bio: 		  userCreate.Bio,
 
 	}
@@ -88,7 +87,6 @@ func (a *AuthUseCase) Register(userCreate *model.UserCreate) (*model.UserList, e
 		Email:    userCreate.Email,
 		Password: password,
 		Role:     "USER",
-		ProfilePicture: userCreate.ProfilePicture,
 		Bio: 		  userCreate.Bio,
 
 	}

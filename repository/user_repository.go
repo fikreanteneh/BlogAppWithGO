@@ -35,7 +35,6 @@ func (u *UserRepository) Create(c context.Context, user *domain.User) (*domain.U
     UserID:           result.InsertedID.(primitive.ObjectID).Hex(),
     Email:            user.Email,
     Name:             user.Name,
-    ProfilePicture:   user.ProfilePicture,
     Bio:              user.Bio,
     Role:             user.Role,
     CreatedAt:        time.Now(),

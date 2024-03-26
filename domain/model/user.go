@@ -6,7 +6,6 @@ type UserCreate struct {
 	Email          string `json:"email"`
 	Name           string `json:"name"`
 	Bio            string `json:"bio"`
-	ProfilePicture []byte `json:"profile_picture"`
 }
 
 type UserLogin struct {

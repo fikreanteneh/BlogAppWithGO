@@ -2,30 +2,32 @@ package usecase
 
 import (
 	"BlogApp/domain"
+	"BlogApp/domain/model"
 )
 
 type BlogUseCase interface {
-	GetBlogs() (*[]*domain.Blog, error)
-	GetBlogByID(id string) (*domain.Blog, error)
-	CreateBlog(blog *domain.Blog) error
-	UpdateBlogByID(id string, blog *domain.Blog) error
-	DeleteBlogByID(id string) error
 
-	GetLikesByBlogID(id string) (*[]*domain.Like, error)
-	LikeBlogByID(id string) error
-	UnlikeBlogByID(id string) error
+	CreateBlog(blog *model.BlogCreate, currUser *model.AuthenticatedUser) (*domain.Blog, error)
+	GetBlogs(currUser *model.AuthenticatedUser) (*[]*domain.Blog, error)
+	GetBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Blog, error)
+	UpdateBlogByID(blogID string, blog *model.BlogCreate, currUser *model.AuthenticatedUser) (*domain.Blog, error)
+	DeleteBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Blog, error)
 
-	GetCommentsByBlogID(id string) (*[]*domain.Comment, error)
-	CreateCommentByBlogID(id string, comment *domain.Comment) error
-	UpdateCommentByBlogID(id string, comment *domain.Comment) error
-	DeleteCommentByBlogID(id string) error
+	GetLikesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*domain.Like, error)
+	LikeBlogByID(blogID  string, currUser *model.AuthenticatedUser) (*domain.Like, error)
+	UnlikeBlogByID(likeID string, currUser *model.AuthenticatedUser) (*domain.Like, error)
 
-	GetSharesByBlogID(id string) (*[]*domain.Share, error)
-	ShareBlogByID(id string) error
-	UnshareBlogByID(id string) error
+	GetCommentsByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*domain.Comment, error)
+	CreateCommentByBlogID(blogID string, comment *model.CommentCreate, currUser *model.AuthenticatedUser) (*domain.Comment, error)
+	UpdateCommentByBlogID(commentID string, comment *model.CommentCreate, currUser *model.AuthenticatedUser) (*domain.Comment, error)
+	DeleteCommentByBlogID(commentID string, currUser *model.AuthenticatedUser) (*domain.Comment, error)
 
-	GetRatingsByBlogID(id string) (*[]*domain.BlogRating, error)
-	RateBlogByID(id string, rating *domain.BlogRating) error
-	UpdateRatingByBlogID(id string, rating *domain.BlogRating) error
-	DeleteRatingByBlogID(id string) error
+	GetSharesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*domain.Share, error)
+	ShareBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Share, error)
+	UnshareBlogByID(shareID string, currUser *model.AuthenticatedUser) (*domain.Share, error)
+
+	GetRatingsByBlogID(blogId string, currUser *model.AuthenticatedUser) (*[]*domain.BlogRating, error)
+	RateBlogByID(blogID string, rating *model.RatingCreate, currUser *model.AuthenticatedUser) (*domain.BlogRating, error)
+	UpdateRatingByBlogID(ratingID string, rating *model.RatingCreate, currUser *model.AuthenticatedUser) (*domain.BlogRating, error)
+	DeleteRatingByBlogID(ratingID string, currUser *model.AuthenticatedUser) (*domain.BlogRating, error)
 }

@@ -28,7 +28,7 @@ func (f *FollowRepository) Create(c context.Context, follow *domain.Follow) (*do
 }
 
 // Delete implements domain.FollowRepository.
-func (f *FollowRepository) Delete(c context.Context, followID string) (*domain.Follow, error) {
+func (f *FollowRepository) Delete(c context.Context, follow *domain.Follow) (*domain.Follow, error) {
 	panic("unimplemented")
 }
 

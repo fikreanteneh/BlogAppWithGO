@@ -14,14 +14,24 @@ import (
 
 func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, gin *gin.Engine) {
 	userRepository := repository.NewUserRepository(db, "users")
+	blogRepository := repository.NewBlogRepository(db, "blogs")
+	// tagRepository := repository.NewTagRepository(db, "tags")
+	// notificationRepository := repository.NewNotificationRepository(db, "notifications")
+	shareRepository := repository.NewShareRepository(db, "shares")
+	// blogTagRepository := repository.NewBlogTagRepository(db, "blogTags")
+	// commentRepository := repository.NewCommentRepository(db, "comments")
+	followRepository := repository.NewFollowRepository(db, "follows")
+	likeRepository := repository.NewLikeRepository(db, "likes")
 
 
 
 	authUseCase := usecase.NewAuthUseCase(env, &userRepository )
-	authController := controller.NewAuthController(env, &authUseCase)
-
 	profileUsecase := usecase.NewProfileUseCase(env, &userRepository)
+	userUseCase := usecase.NewUserUseCase(env, &userRepository, &followRepository, &blogRepository, &shareRepository, &likeRepository)
+	
+	authController := controller.NewAuthController(env, &authUseCase)
 	profileController :=  controller.NewProfileController(env, &profileUsecase)
+	userController := controller.NewUserController(env, &userUseCase)
 
 	publicRouter := gin.Group("auth")
 	publicRouter.POST("/register", authController.Register)
@@ -41,15 +51,15 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 
 	userRouter := gin.Group("user")
 	userRouter.Use(middleware.AuthMiddleware(env.JwtSecret))
-	userRouter.GET("/")
-	userRouter.GET("/:id")
-	userRouter.GET("/:id/followers")
-	userRouter.POST("/:id/follow")
-	userRouter.DELETE("/:id/follow")
-	userRouter.GET("/:id/followings")
-	userRouter.GET("/:id/blogs")
-	userRouter.GET("/:id/shares")
-	userRouter.GET("/:id/likes")
+	userRouter.GET("/", userController.GetUsers)
+	userRouter.GET("/:id", userController.GetUserByID)
+	userRouter.GET("/:id/followers", userController.GetFollowersByID)
+	userRouter.POST("/:id/follow", userController.FollowUserByID)
+	userRouter.DELETE("/:id/follow", userController.UnfollowUserByID)
+	userRouter.GET("/:id/followings", userController.GetFollowingsByID)
+	userRouter.GET("/:id/blogs", userController.GetBlogsByID)
+	userRouter.GET("/:id/shares", userController.GetSharesByID)
+	userRouter.GET("/:id/likes", userController.GetLikesByID)
 
 	notificationRouter := gin.Group("notification")
 	userRouter.Use(middleware.AuthMiddleware(env.JwtSecret))

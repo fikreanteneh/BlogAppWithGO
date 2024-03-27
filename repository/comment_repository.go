@@ -24,7 +24,7 @@ func NewCommentRepository(db *mongo.Database, collection string) domain.CommentR
 
 // Create implements domain.CommentRepository.
 func (*CommentRepository) Create(c context.Context, comment *domain.Comment) (*domain.Comment, error) {
-	panic("unimplemented")
+	
 }
 
 // Delete implements domain.CommentRepository.

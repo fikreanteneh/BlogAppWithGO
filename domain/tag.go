@@ -4,7 +4,7 @@ import "context"
 
 type Tag struct {
 	TagID string `json:"_id" bson:"_id"`
-	Name  string `json:"name" bson:"_id"`
+	Name  string `json:"name" bson:"name"`
 }
 
 type TagRepository interface {

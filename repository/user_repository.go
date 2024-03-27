@@ -24,20 +24,20 @@ func NewUserRepository(db *mongo.Database, collection string) domain.UserReposit
 
 // Create implements domain.UserRepository.
 func (u *UserRepository) Create(c context.Context, user *domain.User) (*domain.User, error) {
-  user.UserID = primitive.NewObjectID().Hex()
 
-   result, err := u.database.Collection(u.collection).InsertOne(c, user)
-  if err != nil{ 
-    return nil, err
-  }
 
   newUser := &domain.User{
-    UserID:           result.InsertedID.(primitive.ObjectID).Hex(),
+    UserID:           primitive.NewObjectID().Hex(),
     Email:            user.Email,
     Name:             user.Name,
     Bio:              user.Bio,
     Role:             user.Role,
     CreatedAt:        time.Now(),
+  }
+
+  _, err := u.database.Collection(u.collection).InsertOne(c, newUser)
+  if err != nil{ 
+    return nil, err
   }
 
   return newUser, nil

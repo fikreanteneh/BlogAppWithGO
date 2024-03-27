@@ -28,10 +28,12 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 	authUseCase := usecase.NewAuthUseCase(env, &userRepository )
 	profileUsecase := usecase.NewProfileUseCase(env, &userRepository)
 	userUseCase := usecase.NewUserUseCase(env, &userRepository, &followRepository, &blogRepository, &shareRepository, &likeRepository)
+	// blogUseCase := 
 	
 	authController := controller.NewAuthController(env, &authUseCase)
 	profileController :=  controller.NewProfileController(env, &profileUsecase)
 	userController := controller.NewUserController(env, &userUseCase)
+	// blogController := controller.NewBlogController(env, &blogUseCase)
 
 	publicRouter := gin.Group("auth")
 	publicRouter.POST("/register", authController.Register)

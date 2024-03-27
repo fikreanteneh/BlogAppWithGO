@@ -1,11 +1,11 @@
 package usecase
 
-import(
-    "BlogApp/domain"
+import (
+	"BlogApp/domain/model"
 )
 
 type NotificationUseCase interface {
-    GetNotifications() (*[]*domain.Notification, error)
-    GetNotificationByID(id string) (*domain.Notification, error)
-    DeleteNotificationByID(id string) error
+    GetNotifications(currUser *model.AuthenticatedUser) (*[]*model.NotificationMessage, error)
+    GetNotificationByID(id string, currUser *model.AuthenticatedUser) (*model.NotificationMessage, error)
+    DeleteNotificationByID(id string, currUser *model.AuthenticatedUser) (*model.NotificationMessage, error)
 }

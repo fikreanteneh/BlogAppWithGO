@@ -1,11 +1,16 @@
 package domain
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 type Notification struct {
 	NotificationID string `json:"notification_id" bson:"_id"`
 	UserID         string `json:"user_id" bson:"user_id"`
 	Content        string `json:"content" bson:"content"`
+	CreatedAt   time.Time `json:"createtimestamp" bson:"createtimestamp"`
+
 }
 
 type NotificationRepository interface {

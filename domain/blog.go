@@ -1,12 +1,17 @@
 package domain
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 type Blog struct {
 	BlogID  string `json:"blog_id" bson:"blog_id"`
 	UserID  string `json:"user_id" bson:"user_id"`
 	Title   string `json:"title" bson:"title"`
 	Content string `json:"content" bson:"content"`
+	CreatedAt   time.Time `json:"createtimestamp" bson:"createtimestamp"`
+	UpdatedAt    time.Time `json:"updatetimestamp" bson:"updatetimestamp"`
 }
 
 type BlogRepository interface {

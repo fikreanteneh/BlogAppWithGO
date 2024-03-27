@@ -1,5 +1,6 @@
-
 package domain
+
+import "context"
 
 type Like struct {
 	LikeID string `json:"like_id" bson:"_id"`
@@ -8,8 +9,8 @@ type Like struct {
 }
 
 type LikeRepository interface {
-	Create(like Like) (*Like, error)
-	GetByBlogID(blogID string) (*[]*Like, error)
-	GetByUserID(userID string) (*[]*Like, error)
-	Delete(likeID string) (*Like, error)
+	Create(c context.Context, like *Like) (*Like, error)
+	GetByBlogID(c context.Context, blogID string) (*[]*Like, error)
+	GetByUserID(c context.Context, userID string) (*[]*Like, error)
+	Delete(c context.Context, likeID string) (*Like, error)
 }

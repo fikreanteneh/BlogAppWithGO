@@ -55,9 +55,15 @@ func (b *BlogController) CreateBlog(c *gin.Context){
 }
 
 func (b *BlogController)GetByBlogID(c *gin.Context){
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+
 	blogID := c.Param("id")
     
-    blog, err := b.BlogUseCase.GetBlogByID(blogID)
+    blog, err := b.BlogUseCase.GetBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get blog by ID"})
         return
@@ -70,7 +76,14 @@ func (b *BlogController)GetByBlogID(c *gin.Context){
 }
 
 func (b *BlogController)GetAllBlogs(c *gin.Context){
-	blogs, err := b.BlogUseCase.GetAllBlogs()
+	
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+
+	blogs, err := b.BlogUseCase.GetBlogs(currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get all blogs"})
         return
@@ -90,13 +103,13 @@ func (b *BlogController)UpdateBlog(c *gin.Context){
 	}
 
 	blogID := c.Param("id")
-    var updatedData model.BlogUpdateData
+    var updatedData model.BlogCreate
     if err := c.BindJSON(&updatedData); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
-	updatedBlog, err := b.BlogUseCase.UpdateBlog(blogID, &updatedData, currUser)
+	updatedBlog, err := b.BlogUseCase.UpdateBlogByID(blogID, &updatedData, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog"})
         return
@@ -117,7 +130,7 @@ func (b BlogController)DeleteBlog(c *gin.Context){
 
 	blogID := c.Param("id")
 
-	err = b.BlogUseCase.DeleteBlog(blogID, currUser)
+	_ , err = b.BlogUseCase.DeleteBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete blog"})
         return
@@ -127,9 +140,15 @@ func (b BlogController)DeleteBlog(c *gin.Context){
 }
 
 func (b *BlogController)GetBlogLikes(c *gin.Context){
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+	
 	blogID := c.Param("id")
     
-    likes, err := b.BlogUseCase.GetBlogLikes(blogID)
+    likes, err := b.BlogUseCase.GetLikesByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog likes"})
         return
@@ -142,10 +161,16 @@ func (b *BlogController)GetBlogLikes(c *gin.Context){
 }
 
 func (b *BlogController) LikeBlog(c *gin.Context){
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+
 	blogID := c.Param("id")
     
 	// TODO : Does the user needs to be authenticated to like/unlike blogs
-    err := b.BlogUseCase.LikeBlog(blogID)
+    _, err = b.BlogUseCase.LikeBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to like blog"})
         return
@@ -155,9 +180,15 @@ func (b *BlogController) LikeBlog(c *gin.Context){
 }
 
 func (b *BlogController) UnlikeBlog(c *gin.Context)  {
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+
 	blogID := c.Param("id")
     
-    err := b.BlogUseCase.UnlikeBlog(blogID)
+    _, err = b.BlogUseCase.UnlikeBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to unlike blog"})
         return
@@ -167,9 +198,15 @@ func (b *BlogController) UnlikeBlog(c *gin.Context)  {
 }
 
 func (b *BlogController) GetBlogComments(c *gin.Context) {
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+
 	blogID := c.Param("id")
     
-    comments, err := b.BlogUseCase.GetBlogComments(blogID)
+    comments, err := b.BlogUseCase.GetCommentsByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog comments"})
         return
@@ -189,15 +226,15 @@ func (b *BlogController) UpdateBlogComments(c *gin.Context){
 		return
 	}
 
-	blogID := c.Param("id")
+	commentID := c.Param("id")
     
-    var updatedComments model.Comment
+    var updatedComments *model.CommentCreate
     if err := c.BindJSON(&updatedComments); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
     
-    updatedComments, err = b.BlogUseCase.UpdateBlogComment(blogID, updatedComments, currUser)
+    _ , err = b.BlogUseCase.UpdateCommentByBlogID(commentID, updatedComments, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog comments"})
         return
@@ -213,10 +250,9 @@ func (b *BlogController) DeleteBlogComments(c *gin.Context){
 		return
 	}
 
-	blogID := c.Param("id")
     commentID := c.Param("comment_id")
     
-    err := b.BlogUseCase.DeleteBlogComment(blogID, commentID)
+    _, err = b.BlogUseCase.DeleteCommentByBlogID(commentID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete blog comment"})
         return
@@ -234,13 +270,13 @@ func (b *BlogController) CommentOnBlog(c *gin.Context){
 
 	blogID := c.Param("id")
     
-    var comment model.Comment
+    var comment *model.CommentCreate
     if err := c.BindJSON(&comment); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
     
-    addedComment, err := b.BlogUseCase.AddCommentToBlog(blogID, comment)
+    addedComment, err := b.BlogUseCase.CreateCommentByBlogID(blogID, comment, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to add comment to blog"})
         return
@@ -253,9 +289,15 @@ func (b *BlogController) CommentOnBlog(c *gin.Context){
 }
 
 func (b *BlogController) GetBlogShares(c *gin.Context)  {
+	currUser, err := utils.CheckUser(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		return
+	}
+
 	blogID := c.Param("id")
     
-    shares, err := b.BlogUseCase.GetBlogShares(blogID)
+    shares, err := b.BlogUseCase.GetSharesByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog shares"})
         return
@@ -275,7 +317,7 @@ func (b *BlogController) ShareBlog(c *gin.Context){
         return
     }
 
-    err = b.BlogUseCase.ShareBlog(blogID, currUser)
+    _,err = b.BlogUseCase.ShareBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to share blog"})
         return
@@ -285,14 +327,14 @@ func (b *BlogController) ShareBlog(c *gin.Context){
 }
 
 func (b *BlogController) UnshareBlog(c *gin.Context){
-	blogID := c.Param("id")
+	shareID := c.Param("id")
     currUser, err := utils.CheckUser(c)
     if err != nil {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
         return
     }
 
-    err = b.BlogUseCase.UnshareBlog(blogID, currUser)
+    _, err = b.BlogUseCase.UnshareBlogByID(shareID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to unshare blog"})
         return
@@ -302,9 +344,15 @@ func (b *BlogController) UnshareBlog(c *gin.Context){
 }
 
 func (b *BlogController) GetBlogRatings(c *gin.Context){
+	currUser, err := utils.CheckUser(c)
+    if err != nil {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+        return
+    }
+
 	blogID := c.Param("id")
     
-    ratings, err := b.BlogUseCase.GetBlogRatings(blogID)
+    ratings, err := b.BlogUseCase.GetRatingsByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog ratings"})
         return
@@ -324,7 +372,9 @@ func (b *BlogController) RateBlog(c *gin.Context){
         return
     }
 
-    err = b.BlogUseCase.RateBlog(blogID, currUser)
+	var rating *model.RatingCreate
+
+    _, err = b.BlogUseCase.RateBlogByID(blogID, rating, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to rate blog"})
         return
@@ -334,18 +384,37 @@ func (b *BlogController) RateBlog(c *gin.Context){
 }
 
 func (b *BlogController) UpdateBlogRating(c *gin.Context){
-	blogID := c.Param("id")
+	ratingID := c.Param("id")
     currUser, err := utils.CheckUser(c)
     if err != nil {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
         return
     }
-
-    err = b.BlogUseCase.UpdateBlogRating(blogID, currUser)
+    
+	var newRating *model.RatingCreate
+    _, err = b.BlogUseCase.UpdateRatingByBlogID(ratingID, newRating, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog rating"})
         return
     }
 
     c.JSON(http.StatusOK, gin.H{"message": "Blog rating updated successfully"})
+}
+
+func (b *BlogController) DeleteBlogRating(c *gin.Context){
+	currUser, err := utils.CheckUser(c)
+    if err != nil {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+        return
+    }
+
+	ratingID := c.Param("id")
+    
+    _, err = b.BlogUseCase.DeleteRatingByBlogID(ratingID, currUser)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog ratings"})
+        return
+    }
+    
+    c.JSON(http.StatusOK, gin.H{ "message": "Blog ratings deleted successfully" })
 }

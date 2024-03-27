@@ -24,17 +24,17 @@ func NewNotificationRepository(db *mongo.Database, collection string) domain.Not
 
 // Create implements domain.NotificationRepository.
 func (n *NotificationRepository) Create(c context.Context, notification *domain.Notification) (*domain.Notification, error) {
-	panic("unimplemented")
+	
 }
 
 // Delete implements domain.NotificationRepository.
 func (n *NotificationRepository) Delete(c context.Context, notificationID string) (*domain.Notification, error) {
-	panic("unimplemented")
+	
 }
 
 // GetByUserId implements domain.NotificationRepository.
 func (n *NotificationRepository) GetByUserId(c context.Context, userID string) (*[]*domain.Notification, error) {
-	panic("unimplemented")
+	
 }
 
 

@@ -39,6 +39,8 @@ func (b *BlogUseCase) CreateBlog(blog *model.BlogCreate, currUser *model.Authent
 			BlogID: createdBlog.BlogID,
 			TagID: tag,
 		})
+
+	}
 	var tags []string
 	for _, tag := range blog.Tags {
 		fetchedTag, err := b.tagRepository.GetByID(b.context, tag)
@@ -46,7 +48,7 @@ func (b *BlogUseCase) CreateBlog(blog *model.BlogCreate, currUser *model.Authent
 			return nil, err
 		}
 		tags = append(tags, fetchedTag.Name)
-		}
+		
 	}
 	return &model.BlogInfo{
 		BlogID: createdBlog.BlogID,
@@ -55,6 +57,7 @@ func (b *BlogUseCase) CreateBlog(blog *model.BlogCreate, currUser *model.Authent
 		Content: createdBlog.Content,
 		CreatedAt: createdBlog.CreatedAt.String(),
 		UpdatedAt: createdBlog.UpdatedAt.String(),
+		Tags: tags,
 	}, nil
 }
 

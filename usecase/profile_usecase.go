@@ -56,32 +56,38 @@ func (p *ProfileUseCase) DeleteProfile(currUser *model.AuthenticatedUser) (*mode
 // GetProfile implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) GetProfile(currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
 	panic("unimplemented")
+	//TODO: implement this usecase
 }
 
 // UpdateEmail implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdateEmail(updated *model.UserUpdateEmail, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
 	panic("unimplemented")
+	//TODO: implement this usecase
 }
 
 // UpdatePassword implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdatePassword(updated *model.UserUpdatePassword, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
 	panic("unimplemented")
+	//TODO: implement this usecase
 }
 
 // UpdateProfile implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdateProfile(updated *model.UserUpdateProfile, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
 	panic("unimplemented")
+	//TODO: implement this usecase
 }
 
 // UpdateUsername implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdateUsername(updated *model.UserUpdateUsername, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
+	//TODO: implement this usecase
 	panic("unimplemented")
 }
 
 // UpdateProfilePicture implements usecase.ProfileUseCase.
 
 //TODO: add the profile picture update method
-// func (p *ProfileUseCase) UpdateProfilePicture(updated *model.UserUpdateProfilePicture, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
-// 	panic("unimplemented")
-// }
+func (p *ProfileUseCase) UpdateProfilePicture(updated *model.UserUpdateProfilePicture, currUser *model.AuthenticatedUser) (*model.UserInfo, error) {
+	panic("unimplemented")
+	//TODO: implement this usecase
+}
 

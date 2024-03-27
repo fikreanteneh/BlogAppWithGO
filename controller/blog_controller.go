@@ -315,12 +315,12 @@ func (b *BlogController) UpdateBlogRating(c *gin.Context){
 	ratingID := c.Param("rating_id")
     currUser, err := utils.CheckUser(c)
     var rate model.RatingCreate
-    if err := c.BindJSON(&model); err != nil {
+    if err := c.BindJSON(&rate); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
-    newRate, err = b.BlogUseCase.UpdateRatingByBlogID(ratingID, &rate, currUser)
+    newRate, err := b.BlogUseCase.UpdateRatingByBlogID(ratingID, &rate, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog rating"})
         return

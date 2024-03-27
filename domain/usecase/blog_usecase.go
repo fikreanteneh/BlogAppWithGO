@@ -3,6 +3,7 @@ package usecase
 import (
 	"BlogApp/domain"
 	"BlogApp/domain/model"
+	"BlogApp/domain/model"
 )
 
 type BlogUseCase interface {
@@ -16,16 +17,16 @@ type BlogUseCase interface {
 	UnlikeBlogByID(id string) (*domain.Blog, error)
 
 	GetCommentsByBlogID(id string) (*[]*domain.Comment, error)
-	CreateCommentByBlogID(id string, comment *domain.Comment) (*domain.Blog, error)
-	UpdateCommentByBlogID(id string, comment *domain.Comment) (*domain.Blog, error)
-	DeleteCommentByBlogID(id string) (*domain.Blog, error)
+	CreateCommentByBlogID(id string, comment *domain.Comment) error
+	UpdateCommentByBlogID(id string, comment *domain.Comment) error
+	DeleteCommentByBlogID(id string) error
 
 	GetSharesByBlogID(id string) (*[]*domain.Share, error)
-	ShareBlogByID(id string) (*domain.Blog, error)
-	UnshareBlogByID(id string) (*domain.Blog, error)
+	ShareBlogByID(id string) error
+	UnshareBlogByID(id string) error
 
 	GetRatingsByBlogID(id string) (*[]*domain.BlogRating, error)
-	RateBlogByID(id string, rating *domain.BlogRating) (*domain.Blog, error)
-	UpdateRatingByBlogID(id string, rating *domain.BlogRating) (*domain.Blog, error)
-	DeleteRatingByBlogID(id string) (*domain.Blog, error)
+	RateBlogByID(id string, rating *domain.BlogRating) error
+	UpdateRatingByBlogID(id string, rating *domain.BlogRating) error
+	DeleteRatingByBlogID(id string) error
 }

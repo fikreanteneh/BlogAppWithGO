@@ -12,5 +12,5 @@ type FollowRepository interface {
 	Create(c context.Context, follow *Follow) (*Follow, error)
 	GetByFollowerID(c context.Context, followerID string) (*[]*Follow, error)
 	GetByFollowedID(c context.Context, followedID string) (*[]*Follow, error)
-	Delete(c context.Context, followID string) (*Follow, error)
+	Delete(c context.Context, follow *Follow) (*Follow, error)
 }

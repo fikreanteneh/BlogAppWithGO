@@ -1,11 +1,16 @@
 package domain
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 type Follow struct {
 	FollowID   string `json:"_id" bson:"_id"`
 	FollowerID string `json:"follower_id" bson:"follower_id"`
 	FollowedID string `json:"followed_id" bson:"followed_id"`
+	CreatedAt   time.Time `json:"createtimestamp" bson:"createtimestamp"`
+
 }
 
 type FollowRepository interface {

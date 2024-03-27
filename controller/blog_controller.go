@@ -4,6 +4,7 @@ import (
 	"BlogApp/config"
 	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
+	"BlogApp/middleware"
 	"BlogApp/utils"
 	"net/http"
 
@@ -48,38 +49,30 @@ func (b *BlogController) CreateBlog(c *gin.Context){
         return
     }
 
-	c.JSON(http.StatusCreated, gin.H{
-        "message": "Blog created successfully",
-        "blog":    blog,
-    })
+	middleware.SuccessResponseHandler(c, http.StatusCreated, "Blog created successfully", blog)
 }
 
 func (b *BlogController)GetByBlogID(c *gin.Context){
 	blogID := c.Param("id")
-    
-    blog, err := b.BlogUseCase.GetBlogByID(blogID)
+    currUser, _ := utils.CheckUser(c)
+    blog, err := b.BlogUseCase.GetBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get blog by ID"})
         return
     }
     
-    c.JSON(http.StatusOK, gin.H{
-        "message": "Blog retrieved successfully",
-        "blog":    blog,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog retrieved successfully", blog)
 }
 
 func (b *BlogController)GetAllBlogs(c *gin.Context){
-	blogs, err := b.BlogUseCase.GetAllBlogs()
+    currUser, _ := utils.CheckUser(c)
+	blogs, err := b.BlogUseCase.GetBlogs(currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get all blogs"})
         return
     }
     
-    c.JSON(http.StatusOK, gin.H{
-        "message": "All blogs retrieved successfully",
-        "blogs":    blogs,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blogs retrieved successfully", blogs)
 }
 
 func (b *BlogController)UpdateBlog(c *gin.Context){
@@ -90,22 +83,19 @@ func (b *BlogController)UpdateBlog(c *gin.Context){
 	}
 
 	blogID := c.Param("id")
-    var updatedData model.BlogUpdateData
+    var updatedData model.BlogUpdate
     if err := c.BindJSON(&updatedData); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
-	updatedBlog, err := b.BlogUseCase.UpdateBlog(blogID, &updatedData, currUser)
+	updatedBlog, err := b.BlogUseCase.UpdateBlogByID(blogID, &updatedData, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog"})
         return
     }
     
-    c.JSON(http.StatusOK, gin.H{
-        "message": "Blog updated successfully",
-        "blog":    updatedBlog,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog updated successfully", updatedBlog)
 }
 
 func (b BlogController)DeleteBlog(c *gin.Context){
@@ -117,72 +107,65 @@ func (b BlogController)DeleteBlog(c *gin.Context){
 
 	blogID := c.Param("id")
 
-	err = b.BlogUseCase.DeleteBlog(blogID, currUser)
+	deleted, err := b.BlogUseCase.DeleteBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete blog"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{"message": "Blog deleted successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog deleted successfully", deleted)
 }
 
 func (b *BlogController)GetBlogLikes(c *gin.Context){
+    currUser, _ := utils.CheckUser(c)
 	blogID := c.Param("id")
     
-    likes, err := b.BlogUseCase.GetBlogLikes(blogID)
+    likes, err := b.BlogUseCase.GetLikesByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog likes"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{
-        "message": "Blog likes retrieved successfully",
-        "likes":   likes,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog likes retrieved successfully", likes)
 }
 
 func (b *BlogController) LikeBlog(c *gin.Context){
 	blogID := c.Param("id")
+    currUser, _ := utils.CheckUser(c)
     
 	// TODO : Does the user needs to be authenticated to like/unlike blogs
-    err := b.BlogUseCase.LikeBlog(blogID)
+    like, err := b.BlogUseCase.LikeBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to like blog"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{"message": "Blog liked successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusCreated, "Blog liked successfully", like)
+
 }
 
 func (b *BlogController) UnlikeBlog(c *gin.Context)  {
 	blogID := c.Param("id")
+    currUser, _ := utils.CheckUser(c)
     
-    err := b.BlogUseCase.UnlikeBlog(blogID)
+    like, err := b.BlogUseCase.UnlikeBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to unlike blog"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{"message": "Blog unliked successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog unliked successfully", like)
 }
 
 func (b *BlogController) GetBlogComments(c *gin.Context) {
 	blogID := c.Param("id")
+    currUser, _ := utils.CheckUser(c)
     
-    comments, err := b.BlogUseCase.GetBlogComments(blogID)
+    comments, err := b.BlogUseCase.GetCommentsByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog comments"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{
-        "message":  "Blog comments retrieved successfully",
-        "comments": comments,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog comments retrieved successfully", comments)
 }
 
 func (b *BlogController) UpdateBlogComments(c *gin.Context){
-
 	currUser, err := utils.CheckUser(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
@@ -191,19 +174,19 @@ func (b *BlogController) UpdateBlogComments(c *gin.Context){
 
 	blogID := c.Param("id")
     
-    var updatedComments model.Comment
-    if err := c.BindJSON(&updatedComments); err != nil {
+    var data model.CommentCreate
+    if err := c.BindJSON(&data); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
     
-    updatedComments, err = b.BlogUseCase.UpdateBlogComment(blogID, updatedComments, currUser)
+    updatedComments, err := b.BlogUseCase.UpdateCommentByBlogID(blogID, &data, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog comments"})
         return
     }
     
-    c.JSON(http.StatusOK, gin.H{"message": "Blog comments updated successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusAccepted, "Blog comments updated successfully", updatedComments)
 }
 
 func (b *BlogController) DeleteBlogComments(c *gin.Context){
@@ -213,16 +196,15 @@ func (b *BlogController) DeleteBlogComments(c *gin.Context){
 		return
 	}
 
-	blogID := c.Param("id")
     commentID := c.Param("comment_id")
     
-    err := b.BlogUseCase.DeleteBlogComment(blogID, commentID)
+    comment, err := b.BlogUseCase.DeleteCommentByBlogID(commentID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete blog comment"})
         return
     }
     
-    c.JSON(http.StatusOK, gin.H{"message": "Blog comment deleted successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog comment deleted successfully", comment)
 }
 
 func (b *BlogController) CommentOnBlog(c *gin.Context){
@@ -234,37 +216,32 @@ func (b *BlogController) CommentOnBlog(c *gin.Context){
 
 	blogID := c.Param("id")
     
-    var comment model.Comment
+    var comment model.CommentCreate
     if err := c.BindJSON(&comment); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
     
-    addedComment, err := b.BlogUseCase.AddCommentToBlog(blogID, comment)
+    addedComment, err := b.BlogUseCase.CreateCommentByBlogID(blogID, &comment, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to add comment to blog"})
         return
     }
     
-    c.JSON(http.StatusCreated, gin.H{
-        "message": "Comment added to blog successfully",
-        "comment": addedComment,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusCreated, "Comment added to blog successfully", addedComment)
 }
 
 func (b *BlogController) GetBlogShares(c *gin.Context)  {
 	blogID := c.Param("id")
+    currUser, _ := utils.CheckUser(c)
     
-    shares, err := b.BlogUseCase.GetBlogShares(blogID)
+    shares, err := b.BlogUseCase.GetSharesByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog shares"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{
-        "message": "Blog shares retrieved successfully",
-        "shares": shares,
-    })
+
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog shares retrieved successfully", shares)
 }
 
 func (b *BlogController) ShareBlog(c *gin.Context){
@@ -275,77 +252,78 @@ func (b *BlogController) ShareBlog(c *gin.Context){
         return
     }
 
-    err = b.BlogUseCase.ShareBlog(blogID, currUser)
+    share, err := b.BlogUseCase.ShareBlogByID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to share blog"})
         return
     }
-
-    c.JSON(http.StatusOK, gin.H{"message": "Blog shared successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog shared successfully", share)
 }
 
 func (b *BlogController) UnshareBlog(c *gin.Context){
-	blogID := c.Param("id")
+	shareID := c.Param("share_id")
     currUser, err := utils.CheckUser(c)
     if err != nil {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
         return
     }
 
-    err = b.BlogUseCase.UnshareBlog(blogID, currUser)
+    share, err := b.BlogUseCase.UnshareBlogByID(shareID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to unshare blog"})
         return
     }
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog unshared successfully", share)
 
-    c.JSON(http.StatusOK, gin.H{"message": "Blog unshared successfully"})
 }
 
 func (b *BlogController) GetBlogRatings(c *gin.Context){
 	blogID := c.Param("id")
+    currUser, _ := utils.CheckUser(c)
     
-    ratings, err := b.BlogUseCase.GetBlogRatings(blogID)
+    ratings, err := b.BlogUseCase.GetRatingsByBlogID(blogID, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog ratings"})
         return
     }
-    
-    c.JSON(http.StatusOK, gin.H{
-        "message": "Blog ratings retrieved successfully",
-        "ratings": ratings,
-    })
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog ratings retrieved successfully", ratings)
 }
 
 func (b *BlogController) RateBlog(c *gin.Context){
 	blogID := c.Param("id")
+    var rating model.RatingCreate
+    if err := c.BindJSON(&rating); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
     currUser, err := utils.CheckUser(c)
     if err != nil {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
         return
     }
 
-    err = b.BlogUseCase.RateBlog(blogID, currUser)
+    rate, err := b.BlogUseCase.RateBlogByID(blogID, &rating, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to rate blog"})
         return
     }
+    middleware.SuccessResponseHandler(c, http.StatusCreated, "Blog rated successfully", rate)
 
-    c.JSON(http.StatusOK, gin.H{"message": "Blog rated successfully"})
 }
 
 func (b *BlogController) UpdateBlogRating(c *gin.Context){
-	blogID := c.Param("id")
+	ratingID := c.Param("rating_id")
     currUser, err := utils.CheckUser(c)
-    if err != nil {
-        c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+    var rate model.RatingCreate
+    if err := c.BindJSON(&model); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
-    err = b.BlogUseCase.UpdateBlogRating(blogID, currUser)
+    newRate, err = b.BlogUseCase.UpdateRatingByBlogID(ratingID, &rate, currUser)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog rating"})
         return
     }
-
-    c.JSON(http.StatusOK, gin.H{"message": "Blog rating updated successfully"})
+    middleware.SuccessResponseHandler(c, http.StatusOK, "Blog rating updated successfully", newRate)
 }

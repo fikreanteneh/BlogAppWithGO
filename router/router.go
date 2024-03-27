@@ -81,17 +81,17 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 
 	blogRouter.GET("/:id/comments")
 	blogRouter.POST("/:id/comments")
-	blogRouter.PUT("/:id/comments")
-	blogRouter.DELETE("/:id/comments")
+	blogRouter.PUT("/:id/comments/:comment_id")
+	blogRouter.DELETE("/:id/comments/:comment_id")
 
 	blogRouter.GET("/:id/shares")
 	blogRouter.POST("/:id/shares")
-	blogRouter.DELETE("/:id/shares")
+	blogRouter.DELETE("/:id/shares/:share_id")
 
 	blogRouter.GET("/:id/ratings")
 	blogRouter.POST("/:id/ratings")
-	blogRouter.PUT("/:id/ratings")
-	blogRouter.DELETE("/:id/ratings")
+	blogRouter.PUT("/:id/ratings/:ratings_id")
+	blogRouter.DELETE("/:id/ratings/:ratings_id")
 
 	tagRouter := gin.Group("tag")
 	tagRouter.Use(middleware.AuthMiddleware(env.JwtSecret))

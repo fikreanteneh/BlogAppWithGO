@@ -7,13 +7,13 @@ import (
 
 type BlogUseCase interface {
 
-	CreateBlog(blog *model.BlogCreate, currUser *model.AuthenticatedUser) (*domain.Blog, error)
-	GetBlogs(currUser *model.AuthenticatedUser) (*[]*domain.Blog, error)
-	GetBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Blog, error)
-	UpdateBlogByID(blogID string, blog *model.BlogCreate, currUser *model.AuthenticatedUser) (*domain.Blog, error)
+	CreateBlog(blog *model.BlogCreate, currUser *model.AuthenticatedUser) (*model.BlogInfo, error)
+	GetBlogs(currUser *model.AuthenticatedUser) (*[]*model.BlogInfo, error)
+	GetBlogByID(blogID string, currUser *model.AuthenticatedUser) (*model.BlogInfo, error)
+	UpdateBlogByID(blogID string, blog *model.BlogUpdate, currUser *model.AuthenticatedUser) (*model.BlogInfo, error)
 	DeleteBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Blog, error)
 
-	GetLikesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*domain.Like, error)
+	GetLikesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*model.UserInfo, error)
 	LikeBlogByID(blogID  string, currUser *model.AuthenticatedUser) (*domain.Like, error)
 	UnlikeBlogByID(likeID string, currUser *model.AuthenticatedUser) (*domain.Like, error)
 
@@ -22,7 +22,7 @@ type BlogUseCase interface {
 	UpdateCommentByBlogID(commentID string, comment *model.CommentCreate, currUser *model.AuthenticatedUser) (*domain.Comment, error)
 	DeleteCommentByBlogID(commentID string, currUser *model.AuthenticatedUser) (*domain.Comment, error)
 
-	GetSharesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*domain.Share, error)
+	GetSharesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*model.BlogInfo, error)
 	ShareBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Share, error)
 	UnshareBlogByID(shareID string, currUser *model.AuthenticatedUser) (*domain.Share, error)
 

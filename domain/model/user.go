@@ -35,6 +35,7 @@ type UserUpdateProfilePicture struct {
 }
 
 type UserInfo struct {
+	UserId string `json:"user_id"`
 	Username string `json:"username"`
 	Name     string `json:"name"`
 	Bio      string `json:"bio"`

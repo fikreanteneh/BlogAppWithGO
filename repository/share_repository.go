@@ -3,7 +3,6 @@ package repository
 import (
 	"BlogApp/domain"
 	"context"
-	"time"
 
 	// "time"
 
@@ -28,20 +27,14 @@ func NewShareRepository(db *mongo.Database, collection string) domain.ShareRepos
 
 // Create implements domain.ShareRepository.
 func (s *ShareRepository) Create(c context.Context, share *domain.Share) (*domain.Share, error) {
-	newShare := &domain.Share{
-		ShareID: primitive.NewObjectID().Hex(),
-		UserID:  share.UserID,
-		BlogID:  share.BlogID,
-		CreatedAt: time.Now(),
-
-	  }
+	share.ShareID = primitive.NewObjectID().Hex()
   
-	  _, err := s.database.Collection(s.collection).InsertOne(c, newShare)
+	  _, err := s.database.Collection(s.collection).InsertOne(c, *share)
 	  if err != nil{ 
 		return nil, err
 	  }
 	
-	  return newShare, nil
+	  return share, nil
 }
 
 // Delete implements domain.ShareRepository.

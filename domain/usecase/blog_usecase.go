@@ -7,27 +7,9 @@ import (
 
 type BlogUseCase interface {
 
-	CreateBlog(blog *model.BlogCreate, currUser *model.AuthenticatedUser) (*model.BlogInfo, error)
-	GetBlogs(currUser *model.AuthenticatedUser) (*[]*model.BlogInfo, error)
-	GetBlogByID(blogID string, currUser *model.AuthenticatedUser) (*model.BlogInfo, error)
-	UpdateBlogByID(blogID string, blog *model.BlogUpdate, currUser *model.AuthenticatedUser) (*model.BlogInfo, error)
-	DeleteBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Blog, error)
-
-	GetLikesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*model.UserInfo, error)
-	LikeBlogByID(blogID  string, currUser *model.AuthenticatedUser) (*domain.Like, error)
-	UnlikeBlogByID(likeID string, currUser *model.AuthenticatedUser) (*domain.Like, error)
-
-	GetCommentsByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*domain.Comment, error)
-	CreateCommentByBlogID(blogID string, comment *model.CommentCreate, currUser *model.AuthenticatedUser) (*domain.Comment, error)
-	UpdateCommentByBlogID(commentID string, comment *model.CommentCreate, currUser *model.AuthenticatedUser) (*domain.Comment, error)
-	DeleteCommentByBlogID(commentID string, currUser *model.AuthenticatedUser) (*domain.Comment, error)
-
-	GetSharesByBlogID(blogID string, currUser *model.AuthenticatedUser) (*[]*model.BlogInfo, error)
-	ShareBlogByID(blogID string, currUser *model.AuthenticatedUser) (*domain.Share, error)
-	UnshareBlogByID(shareID string, currUser *model.AuthenticatedUser) (*domain.Share, error)
-
-	GetRatingsByBlogID(blogId string, currUser *model.AuthenticatedUser) (*[]*domain.BlogRating, error)
-	RateBlogByID(blogID string, rating *model.RatingCreate, currUser *model.AuthenticatedUser) (*domain.BlogRating, error)
-	UpdateRatingByBlogID(ratingID string, rating *model.RatingCreate, currUser *model.AuthenticatedUser) (*domain.BlogRating, error)
-	DeleteRatingByBlogID(ratingID string, currUser *model.AuthenticatedUser) (*domain.BlogRating, error)
+	CreateBlog(currUser *model.AuthenticatedUser,dto *model.BlogCreate, param any) (*model.BlogInfo, string, error)
+	GetBlogs(currUser *model.AuthenticatedUser, dto any, param *model.SearchParam) (*[]*model.BlogInfo, string, error)
+	GetBlogByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.BlogInfo, string, error)
+	UpdateBlogByID(currUser *model.AuthenticatedUser, dto *model.BlogUpdate, param *model.IdParam) (*model.BlogInfo, string, error)
+	DeleteBlogByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Blog, string, error)
 }

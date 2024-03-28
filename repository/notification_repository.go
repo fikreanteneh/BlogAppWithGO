@@ -3,7 +3,6 @@ package repository
 import (
 	"BlogApp/domain"
 	"context"
-	"time"
 
 	// "time"
 
@@ -28,20 +27,13 @@ func NewNotificationRepository(db *mongo.Database, collection string) domain.Not
 
 // Create implements domain.NotificationRepository.
 func (n *NotificationRepository) Create(c context.Context, notification *domain.Notification) (*domain.Notification, error) {
-	newNotification := &domain.Notification{
-		NotificationID: primitive.NewObjectID().Hex(),
-		UserID:         notification.UserID,
-		Content:        notification.Content,
-		CreatedAt:      time.Now(),
-		
-	  }
-  
-	  _, err := n.database.Collection(n.collection).InsertOne(c, newNotification)
+	notification.NotificationID = primitive.NewObjectID().Hex()
+	  _, err := n.database.Collection(n.collection).InsertOne(c, *notification)
 	  if err != nil{ 
 		return nil, err
 	  }
 	
-	  return newNotification, nil
+	  return notification, nil
 	
 }
 

@@ -27,18 +27,13 @@ func NewTagRepository(db *mongo.Database, collection string) domain.TagRepositor
 
 // Create implements domain.TagRepository.
 func (t *TagRepository) Create(c context.Context, tag *domain.Tag) (*domain.Tag, error) {
-  
-	newTag := &domain.Tag{
-	  TagID:          primitive.NewObjectID().Hex(),
-	  Name:             tag.Name,
-	}
-
-	_, err := t.database.Collection(t.collection).InsertOne(c, newTag)
+	tag.TagID = primitive.NewObjectID().Hex()
+	_, err := t.database.Collection(t.collection).InsertOne(c, *tag)
 	if err != nil{ 
 	  return nil, err
 	}
   
-	return newTag, nil
+	return tag, nil
 }
 
 // Delete implements domain.TagRepository.

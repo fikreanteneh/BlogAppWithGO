@@ -3,7 +3,6 @@ package repository
 import (
 	"BlogApp/domain"
 	"context"
-	"time"
 
 	// "time"
 
@@ -28,21 +27,13 @@ func NewLikeRepository(db *mongo.Database, collection string) domain.LikeReposit
 
 // Create implements domain.LikeRepository.
 func (l *LikeRepository) Create(c context.Context, like *domain.Like) (*domain.Like, error) {
-	newLike := &domain.Like{
-		LikeID:          primitive.NewObjectID().Hex(),
-		UserID:		      like.UserID,
-		BlogID:          like.BlogID,
-		CreatedAt:       time.Now(),
-		
-
-	  }
-  
-	  _, err := l.database.Collection(l.collection).InsertOne(c, newLike)
+	like.LikeID = primitive.NewObjectID().Hex()
+	  _, err := l.database.Collection(l.collection).InsertOne(c, *like)
 	  if err != nil{ 
 		return nil, err
 	  }
 	
-	  return newLike, nil
+	  return like, nil
 	
 }
 

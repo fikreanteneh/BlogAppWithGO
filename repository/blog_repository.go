@@ -28,24 +28,12 @@ func NewBlogRepository(db *mongo.Database, collection string) domain.BlogReposit
 
 // Create implements domain.BlogRepository.
 func (b *BlogRepository) Create(c context.Context, blog *domain.Blog) (*domain.Blog, error) {
-
-	newBlog := &domain.Blog{
-	  BlogID:           primitive.NewObjectID().Hex(),
-	  UserID:		   blog.UserID,
-	  Title:            blog.Title,
-	  Content:          blog.Content,
-	  CreatedAt:        time.Now(),
-	  UpdatedAt:        time.Now(),
-
-	}
-
-	_, err := b.database.Collection(b.collection).InsertOne(c, newBlog)
+	blog.BlogID = primitive.NewObjectID().Hex()
+	_, err := b.database.Collection(b.collection).InsertOne(c, *blog)
 	if err != nil{ 
 	  return nil, err
 	}
-  
-  
-	return newBlog, nil
+	return blog, nil
 }
 
 // Delete implements domain.BlogRepository.

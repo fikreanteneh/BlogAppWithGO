@@ -27,22 +27,13 @@ func NewBlogRatingRepository(db *mongo.Database, collection string) domain.BlogR
 }
 // InsertRating implements domain.BlogRatingRepository.
 func (b *BlogRatingRepository) InsertRating(c context.Context, rating *domain.BlogRating) (*domain.BlogRating, error) {
-  
-	newBlogRating := &domain.BlogRating{
-	  RatingID:           primitive.NewObjectID().Hex(),
-	  UserID:             rating.UserID,
-	  BlogID:             rating.BlogID,
-	  Rating:             rating.Rating,
-	  CreatedAt:        time.Now(),
-	  UpdatedAt:        time.Now(),
-
-	}
-	_, err := b.database.Collection(b.collection).InsertOne(c, newBlogRating)
+	rating.RatingID = primitive.NewObjectID().Hex()
+	_, err := b.database.Collection(b.collection).InsertOne(c, *rating)
 	if err != nil{ 
 	  return nil, err
 	}
   
-	return newBlogRating, nil
+	return rating, nil
 }
 
 // DeleteRating implements domain.BlogRatingRepository.

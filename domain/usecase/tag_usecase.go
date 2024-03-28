@@ -6,9 +6,9 @@ import (
 )
 
 type TagUseCase interface {
-    GetTags(currUser *model.AuthenticatedUser) (*[]*domain.Tag, error)
-    GetTagByID(id string, currUser *model.AuthenticatedUser) (*domain.Tag, error)
-    CreateTag(tag *domain.Tag, currUser *model.AuthenticatedUser) (*domain.Tag, error)
-    UpdateTagByID(id string, tag *domain.Tag, currUser *model.AuthenticatedUser) (*domain.Tag, error)
-    DeleteTagByID(id string, currUser *model.AuthenticatedUser) (*domain.Tag, error)
+    GetTags(currUser *model.AuthenticatedUser, dto any, param *model.SearchParam) (*[]*domain.Tag, string, error)
+    GetTagByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Tag, string, error)
+    CreateTag(currUser *model.AuthenticatedUser, dto *model.TagCreate, param any) (*domain.Tag, string, error)
+    UpdateTagByID(currUser *model.AuthenticatedUser, dto *model.TagCreate, param *model.IdParam) (*domain.Tag, string, error)
+    DeleteTagByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Tag, string, error)
 }

@@ -3,7 +3,6 @@ package repository
 import (
 	"BlogApp/domain"
 	"context"
-	"time"
 
 	// "time"
 
@@ -28,20 +27,14 @@ func NewFollowRepository(db *mongo.Database, collection string) domain.FollowRep
 
 // Create implements domain.FollowRepository.
 func (f *FollowRepository) Create(c context.Context, follow *domain.Follow) (*domain.Follow, error) {
-	newFollow := &domain.Follow{
-		FollowID:          primitive.NewObjectID().Hex(),
-		FollowerID:        follow.FollowerID,
-		FollowedID:        follow.FollowedID,
-		CreatedAt:         time.Now(),
-
-	  }
+	follow.FollowID = primitive.NewObjectID().Hex()
   
-	  _, err := f.database.Collection(f.collection).InsertOne(c, newFollow)
+	  _, err := f.database.Collection(f.collection).InsertOne(c, *follow)
 	  if err != nil{ 
 		return nil, err
 	  }
 	
-	  return newFollow, nil
+	  return follow, nil
 }
 
 // Delete implements domain.FollowRepository.

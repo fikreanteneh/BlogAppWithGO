@@ -2,11 +2,8 @@ package controller
 
 import (
 	"BlogApp/config"
-	"BlogApp/domain"
+	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
-	"BlogApp/middleware"
-	"BlogApp/utils"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,109 +22,37 @@ func NewUserController(environment *config.Environment, userUseCase *usecase.Use
 }
 
 func (uc *UserController) GetUsers(c *gin.Context) {
-	var search = c.Query("search")
-	users, err := uc.userUseCase.GetUsers(search)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, users)
+	GetHandler(c, uc.userUseCase.GetUsers, nil, &model.SearchParam{Search: c.Query("search")})
 }
 
 func (uc *UserController) GetUserByID(c *gin.Context) {
-	id := c.Param("id")
-	user, err := uc.userUseCase.GetUserByID(id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, user)
+	GetHandler(c, uc.userUseCase.GetUserByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) GetFollowersByID(c *gin.Context) {
-	id := c.Param("id")
-	followers, err := uc.userUseCase.GetFollowersByID(id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, followers)
+	GetHandler(c, uc.userUseCase.GetFollowersByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) FollowUserByID(c *gin.Context) {
-
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-
-	var follow *domain.Follow
-	id := c.Param("id")
-	follow, err = uc.userUseCase.FollowUserByID(id, currUser)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	
-	middleware.SuccessResponseHandler(c, 200, "successfully followed", follow)
+	GetHandler(c, uc.userUseCase.FollowUserByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) UnfollowUserByID(c *gin.Context) {
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-	var unfollow *domain.Follow
-
-	id := c.Param("id")
-	unfollow ,err = uc.userUseCase.UnfollowUserByID(id, currUser)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	
-	middleware.SuccessResponseHandler(c, 200, "successfully unfollowed", unfollow)
-	
-   }
+	GetHandler(c, uc.userUseCase.UnfollowUserByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) GetFollowingsByID(c *gin.Context){
-
-	id := c.Param("id")
-	followings, err := uc.userUseCase.GetFollowingsByID(id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	middleware.SuccessResponseHandler(c, 200, "successfully retrieved followings", followings)
+	GetHandler(c, uc.userUseCase.GetFollowingsByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) GetBlogsByID(c *gin.Context) {
-	id := c.Param("id")
-	blogs, err := uc.userUseCase.GetBlogsByID(id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	middleware.SuccessResponseHandler(c, 200, "successfully retrieved blogs", blogs)
+	GetHandler(c, uc.userUseCase.GetBlogsByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) GetSharesByID(c *gin.Context) {
-	id := c.Param("id")
-	shares, err := uc.userUseCase.GetSharesByID(id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	middleware.SuccessResponseHandler(c, 200, "successfully retrieved shares", shares)
+	GetHandler(c, uc.userUseCase.GetSharesByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
 
 func (uc *UserController) GetLikesByID(c *gin.Context) {
-	id := c.Param("id")
-	likes, err := uc.userUseCase.GetLikesByID(id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	middleware.SuccessResponseHandler(c, 200, "successfully retrieved likes", likes)
+	GetHandler(c, uc.userUseCase.GetLikesByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }

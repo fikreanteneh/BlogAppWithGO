@@ -28,22 +28,14 @@ func NewCommentRepository(db *mongo.Database, collection string) domain.CommentR
 
 // Create implements domain.CommentRepository.
 func (m *CommentRepository) Create(c context.Context, comment *domain.Comment) (*domain.Comment, error) {
-	newComment := &domain.Comment{
-		CommentID:          primitive.NewObjectID().Hex(),
-		UserID:		      comment.UserID,
-		BlogID:            comment.BlogID,
-		Content:          comment.Content,
-		CreatedAt:        time.Now(),
-		UpdatedAt:        time.Now(),
+	comment.CommentID = primitive.NewObjectID().Hex()
   
-	  }
-  
-	  _, err := m.database.Collection(m.collection).InsertOne(c, newComment)
+	  _, err := m.database.Collection(m.collection).InsertOne(c, *comment)
 	  if err != nil{ 
 		return nil, err
 	  }
 	
-	  return newComment, nil
+	  return comment, nil
 }
 
 // Delete implements domain.CommentRepository.

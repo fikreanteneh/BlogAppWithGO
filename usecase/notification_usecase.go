@@ -25,13 +25,33 @@ func NewNotificationUseCase(context *context.Context, environment *config.Enviro
 
 
 func (nuc *NotificationUseCase) GetNotifications(currUser *model.AuthenticatedUser, dto any, param any) (*[]*model.NotificationMessage, string, error) {
-    panic("unimplemented")
+	notification, err := nuc.notificationRepository.GetByUserId(nuc.context, currUser.UserID)
+	if err != nil {
+		return nil, "Notification Fetch Failed", err
+	}
+	var notifications []*model.NotificationMessage
+	for _, not := range *notification {
+		notifications = append(notifications, &model.NotificationMessage{
+			NotificationID: not.NotificationID,
+			UserID: not.UserID,
+			Content: not.Content,
+			CreatedAt: not.CreatedAt,
+		})
+	}
+	return &notifications, "Notification Fetched Successfully", nil
+
 }
 
-func (nuc *NotificationUseCase) GetNotificationByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.NotificationMessage, string, error) {
-    panic("unimplemented")
-}
 
 func (nuc *NotificationUseCase) DeleteNotificationByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.NotificationMessage, string, error) {
-    panic("unimplemented")
+	deletedNotification, err := nuc.notificationRepository.Delete(nuc.context, param.ID)
+	if err != nil {
+		return nil, "Notification Deletion Failed", err
+	}
+	return &model.NotificationMessage{
+		NotificationID: deletedNotification.NotificationID,
+		UserID: deletedNotification.UserID,
+		Content: deletedNotification.Content,
+		CreatedAt: deletedNotification.CreatedAt,
+	}, "Notification Deletion Successfull", nil
 }

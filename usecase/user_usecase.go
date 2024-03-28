@@ -21,22 +21,67 @@ type UserUseCase struct {
 
 // FollowUserByID implements usecase.UserUseCase.
 func (u *UserUseCase) FollowUserByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Follow, string, error) {
-	panic("unimplemented")
+	//TODO : Validation Handling
+	follow, err := u.followRepository.Create(u.context, &domain.Follow{
+		FollowedID: param.ID,
+		FollowerID: currUser.UserID,
+	})
+	if err != nil {
+		return nil, "", err
+	}
+	return follow, "Followed User Successfully", nil
 }
 
 // GetBlogsByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetBlogsByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*domain.Blog, string, error) {
-	panic("unimplemented")
+	blogs, err := u.blogRepository.GetByUserId(u.context, param.ID)
+	if err != nil {
+		return nil, "", err
+	}
+	return blogs, "Blogs Fetched Successfully", nil
 }
 
 // GetFollowersByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetFollowersByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.UserInfo, string, error) {
-	panic("unimplemented")
+	//TODO: Aggregation
+	follows , err := u.followRepository.GetByFollowedID(u.context, param.ID)
+	if err != nil {
+		return nil, "", err
+	}
+	var followers []*model.UserInfo
+	for _, follow := range *follows {
+		user, err := u.userRepository.GetById(u.context, follow.FollowerID)
+		if err != nil {
+			continue
+		}
+		followers = append(followers, &model.UserInfo{
+			Username: user.Username,
+			Name:     user.Name,
+			Bio:      user.Bio,
+		})
+	}
+	return &followers, "Followers Fetched Successfully", nil
 }
 
 // GetFollowingsByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetFollowingsByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.UserInfo, string, error) {
-	panic("unimplemented")
+		follows , err := u.followRepository.GetByFollowerID(u.context, param.ID)
+	if err != nil {
+		return nil, "", err
+	}
+	var followers []*model.UserInfo
+	for _, follow := range *follows {
+		user, err := u.userRepository.GetById(u.context, follow.FollowerID)
+		if err != nil {
+			continue
+		}
+		followers = append(followers, &model.UserInfo{
+			Username: user.Username,
+			Name:     user.Name,
+			Bio:      user.Bio,
+		})
+	}
+	return &followers, "Follow Feingstched Successfully", nil
 }
 
 // GetLikesByID implements usecase.UserUseCase.
@@ -61,7 +106,15 @@ func (u *UserUseCase) GetUsers(currUser *model.AuthenticatedUser, dto any, param
 
 // UnfollowUserByID implements usecase.UserUseCase.
 func (u *UserUseCase) UnfollowUserByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Follow, string, error) {
-	panic("unimplemented")
+	//TODO : Validation Handling
+	follow, err := u.followRepository.Delete(u.context, &domain.Follow{
+		FollowedID: param.ID,
+		FollowerID: currUser.UserID,
+	})
+	if err != nil {
+		return nil, "", err
+	}
+	return follow, "Unfollowed User Successfully", nil
 }
 
 func NewUserUseCase(context *context.Context, environment *config.Environment, userRepository *domain.UserRepository, followRepository *domain.FollowRepository, blogRepository *domain.BlogRepository, shareRepository *domain.ShareRepository, likeRepository *domain.LikeRepository, blogTagRepository *domain.BlogTagRepository) usecase.UserUseCase {

@@ -35,7 +35,7 @@ func (b *BlogController)GetAllBlogs(c *gin.Context){
 }
 
 func (b *BlogController)UpdateBlog(c *gin.Context){
-    PutHandler(c, b.BlogUseCase.UpdateBlogByID, &model.BlogUpdate{}, nil)
+    PutHandler(c, b.BlogUseCase.UpdateBlogByID, &model.BlogUpdate{}, &model.IdParam{ID: c.Param("blog_id")})
 }
 
 func (b BlogController)DeleteBlog(c *gin.Context){

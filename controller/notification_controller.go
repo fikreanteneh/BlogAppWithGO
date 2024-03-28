@@ -12,7 +12,6 @@ type NotificationController struct{
 	NotificationUseCase usecase.NotificationUseCase
 }
 
-
 func NewNotificationController(environment *config.Environment, notificationUseCase *usecase.NotificationUseCase) *NotificationController {
 	return &NotificationController{
 		environment: environment,
@@ -23,10 +22,6 @@ func NewNotificationController(environment *config.Environment, notificationUseC
 
 func (n *NotificationController) GetNotification(c *gin.Context){
 	GetHandler(c, n.NotificationUseCase.GetNotifications, nil, nil)
-}
-
-func (n *NotificationController) GetNotificationByID(c *gin.Context){
-	GetHandler(c, n.NotificationUseCase.GetNotificationByID, nil, &model.IdParam{ID: c.Param("notification_id")})
 }
 
 func (n *NotificationController) DeleteNotificationByID(c *gin.Context){

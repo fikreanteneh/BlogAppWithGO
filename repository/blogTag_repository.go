@@ -28,7 +28,7 @@ func NewBlogTagRepository(db *mongo.Database, collection string) domain.BlogTagR
 
 // Create implements domain.BlogTagRepository.
 func (b *BlogTagRepository) Create(c context.Context, blogTag *domain.BlogTag) (*domain.BlogTag, error) {
-	blogTag.BlogID = primitive.NewObjectID().Hex()
+	blogTag.BlogTagID = primitive.NewObjectID().Hex()
 
 	_, err := b.database.Collection(b.collection).InsertOne(c, *blogTag)
 	if err != nil {

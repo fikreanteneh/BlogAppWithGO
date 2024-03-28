@@ -29,7 +29,7 @@ func (cc *CommentController) CreateComment(c *gin.Context) {
 }
 
 func (cc *CommentController) UpdateComment(c *gin.Context) {
-    GetHandler(c, cc.commentUseCase.UpdateCommentByBlogID, nil, &model.IdParam{ID: c.Param("comment_id")})
+    GetHandler(c, cc.commentUseCase.UpdateCommentByID, nil, &model.IdParam{ID: c.Param("comment_id")})
 }
 
 func (cc *CommentController) DeleteComment(c *gin.Context) {

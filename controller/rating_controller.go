@@ -29,9 +29,9 @@ func (rc *RatingController) RateBlog(c *gin.Context) {
 }
 
 func (rc *RatingController) UpdateRating(c *gin.Context) {
-	PutHandler(c, rc.ratingUseCase.UpdateRatingByBlogID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("blog_id")})
+	PutHandler(c, rc.ratingUseCase.UpdateRatingByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("rating_id")})
 }
 
 func (rc *RatingController) DeleteRating(c *gin.Context) {
-	DeleteHandler(c, rc.ratingUseCase.DeleteRatingByBlogID, nil, &model.IdParam{ID: c.Param("rating_id")})
+	DeleteHandler(c, rc.ratingUseCase.DeleteRatingByID, nil, &model.IdParam{ID: c.Param("rating_id")})
 }

@@ -3,19 +3,24 @@ package middleware
 import (
 	"fmt"
 	"net/http"
+	"strings"
+
+	"BlogApp/domain/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-    "BlogApp/domain/model"
 )
 
 func AuthMiddleware(secret string) gin.HandlerFunc {
     return func(c *gin.Context) {
-        authHeader := c.GetHeader("Authorization")
-        if authHeader == "" {
+        header := c.GetHeader("Authorization")
+        if header == "" {
             c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization header not provided"})
             return
         }
+
+        authHeader := strings.Split(header, " ")[1]
+
 
         token, err := jwt.Parse(authHeader, func(token *jwt.Token) (interface{}, error) {
             if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {

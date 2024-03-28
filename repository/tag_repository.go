@@ -112,7 +112,6 @@ func (t *TagRepository) Update(c context.Context, tag *domain.Tag) (*domain.Tag,
 	if err != nil {
 		return nil, err
 	}
-
 	return tag, nil
 
 }

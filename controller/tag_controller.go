@@ -35,7 +35,7 @@ func (t *TagController) CreateTag(c *gin.Context){
 }
 
 func (t *TagController) UpdateTagByID(c *gin.Context){
-	PutHandler(c, t.TagUseCase.CreateTag, &model.TagCreate{}, nil)
+	PutHandler(c, t.TagUseCase.UpdateTagByID, &model.TagCreate{}, &model.IdParam{ID: c.Param("tag_id")})
 }
 
 func (t *TagController) DeleteTagByID(c *gin.Context){

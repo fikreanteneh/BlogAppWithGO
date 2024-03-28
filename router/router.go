@@ -27,19 +27,17 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 	likeRepository := repository.NewLikeRepository(db, "likes")
 	ratingRepository := repository.NewBlogRatingRepository(db, "ratings")
 
-
-
 	authUseCase := usecase.NewAuthUseCase(&ctx, env, &userRepository )
 	profileUsecase := usecase.NewProfileUseCase(&ctx, env, &userRepository)
 	userUseCase := usecase.NewUserUseCase(&ctx, env, &userRepository, &followRepository, &blogRepository, &shareRepository, &likeRepository, &blogTagRepository)
 	blogUseCase := usecase.NewBlogUseCase(&ctx, env, &blogRepository, &userRepository, &shareRepository, &likeRepository, &ratingRepository, &tagRepository, &blogTagRepository)
 	tagUseCase := usecase.NewTagUseCase(&ctx, env, &tagRepository)
 	notificationUseCase := usecase.NewNotificationUseCase(&ctx, env, &notificationRepository)
-	shareUseCase := usecase.NewShareUseCase(&ctx, env, &shareRepository)
+	shareUseCase := usecase.NewShareUseCase(&ctx, env, &shareRepository, &blogRepository)
 	commentUseCase := usecase.NewCommentUseCase(&ctx, env, &commentRepository)
-	likeUseCase := usecase.NewLikeUseCase(&ctx, env, &likeRepository)
+	likeUseCase := usecase.NewLikeUseCase(&ctx, env, &likeRepository, &userRepository)
 	ratingUseCase := usecase.NewRatingUseCase(&ctx, env, &ratingRepository)
-	
+
 	authController := controller.NewAuthController(env, &authUseCase)
 	profileController :=  controller.NewProfileController(env, &profileUsecase)
 	userController := controller.NewUserController(env, &userUseCase)
@@ -50,7 +48,6 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 	commentController := controller.NewCommentController(env, &commentUseCase)
 	likeController := controller.NewLikeController(env, &likeUseCase)
 	ratingController := controller.NewRatingController(env, &ratingUseCase)
-
 
 	publicRouter := gin.Group("auth")
 	publicRouter.POST("/register", authController.Register)
@@ -83,7 +80,6 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 	notificationRouter := gin.Group("notification")
 	userRouter.Use(middleware.AuthMiddleware(env.JwtSecret))
 	notificationRouter.GET("/", notificationController.GetNotification)
-	notificationRouter.GET("/:notification_id", notificationController.GetNotificationByID)
 	notificationRouter.DELETE("/:notification_id", notificationController.DeleteNotificationByID)
 
 	blogRouter := gin.Group("blog")

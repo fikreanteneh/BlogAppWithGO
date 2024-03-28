@@ -1,12 +1,15 @@
 package usecase
 
-import "BlogApp/domain/model"
+import (
+	"BlogApp/domain"
+	"BlogApp/domain/model"
+)
 
 type ProfileUseCase interface {
 	GetProfile(
 		currUser *model.AuthenticatedUser, 
 		dto any, 
-		param any) (*model.UserInfo, string, error)
+		param any) (*domain.User, string, error)
 	UpdateProfile(
 		currUser *model.AuthenticatedUser, 
 		updated *model.UserUpdateProfile, 

@@ -19,20 +19,32 @@ type BlogRatingRepository struct {
 	collection string
 }
 
+// GetRatingByID implements domain.BlogRatingRepository.
+func (b *BlogRatingRepository) GetRatingByID(c context.Context, ratingID string) (*domain.BlogRating, error) {
+	filter := bson.M{"_id": ratingID}
+	var blogRating domain.BlogRating
+	err := b.database.Collection(b.collection).FindOne(c, filter).Decode(&blogRating)
+	if err != nil {
+		return nil, err
+	}
+	return &blogRating, nil
+}
+
 func NewBlogRatingRepository(db *mongo.Database, collection string) domain.BlogRatingRepository {
 	return &BlogRatingRepository{
 		database:   db,
 		collection: collection,
 	}
 }
+
 // InsertRating implements domain.BlogRatingRepository.
 func (b *BlogRatingRepository) InsertRating(c context.Context, rating *domain.BlogRating) (*domain.BlogRating, error) {
 	rating.RatingID = primitive.NewObjectID().Hex()
 	_, err := b.database.Collection(b.collection).InsertOne(c, *rating)
-	if err != nil{ 
-	  return nil, err
+	if err != nil {
+		return nil, err
 	}
-  
+
 	return rating, nil
 }
 
@@ -120,5 +132,3 @@ func (b *BlogRatingRepository) UpdateRating(c context.Context, rating *domain.Bl
 
 	return rating, nil
 }
-
-

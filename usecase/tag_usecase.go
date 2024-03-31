@@ -6,6 +6,7 @@ import (
 	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
 	"context"
+	"errors"
 )
 
 type TagUseCase struct {
@@ -16,8 +17,10 @@ type TagUseCase struct {
 
 // CreateTag implements usecase.TagUseCase.
 func (t *TagUseCase) CreateTag(currUser *model.AuthenticatedUser, dto *model.TagCreate, param any) (*domain.Tag, string, error) {
-	//TODO : Authorization Handling
 	//TODO : Validation Handling
+	if currUser.Role != "ADMIN" {
+		return nil, "Tag Creation Failed", errors.New("Unauthorized")
+	}
 	createdTag, err := t.tagRepository.Create(t.context, &domain.Tag{
 		Name: dto.Name,
 	})
@@ -29,8 +32,9 @@ func (t *TagUseCase) CreateTag(currUser *model.AuthenticatedUser, dto *model.Tag
 
 // DeleteTagByID implements usecase.TagUseCase.
 func (t *TagUseCase) DeleteTagByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Tag, string, error) {
-	//TODO : Authorization Handling
-	//TODO : Validation Handling
+	if currUser.Role != "ADMIN" {
+		return nil, "Tag Creation Failed", errors.New("Unauthorized")
+	}
 	deletedTag, err := t.tagRepository.Delete(t.context, param.ID)
 	if err != nil {
 		return nil, "Tag Deletion Failed", err
@@ -40,8 +44,6 @@ func (t *TagUseCase) DeleteTagByID(currUser *model.AuthenticatedUser, dto any, p
 
 // GetTagByID implements usecase.TagUseCase.
 func (t *TagUseCase) GetTagByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Tag, string, error) {
-	//TODO : Authorization Handling
-	//TODO : Validation Handling
 	fetchedTag, err := t.tagRepository.GetByID(t.context, param.ID)
 	if err != nil {
 		return nil, "Tag Not Found", err
@@ -51,8 +53,6 @@ func (t *TagUseCase) GetTagByID(currUser *model.AuthenticatedUser, dto any, para
 
 // GetTags implements usecase.TagUseCase.
 func (t *TagUseCase) GetTags(currUser *model.AuthenticatedUser, dto any, param *model.SearchParam) (*[]*domain.Tag, string, error) {
-	//TODO : Authorization Handling
-	//TODO : Validation Handling
 	fetchedTags, err := t.tagRepository.GetAll(t.context, param.Search)
 	if err != nil {
 		return nil, "Tags Fetching Failed", err
@@ -62,8 +62,10 @@ func (t *TagUseCase) GetTags(currUser *model.AuthenticatedUser, dto any, param *
 
 // UpdateTagByID implements usecase.TagUseCase.
 func (t *TagUseCase) UpdateTagByID(currUser *model.AuthenticatedUser, dto *model.TagCreate, param *model.IdParam) (*domain.Tag, string, error) {
-	//TODO: Authorization Handling
-	//TODO: Validation Handling
+	//TODO : Validation Handling
+	if currUser.Role != "ADMIN" {
+		return nil, "Tag Creation Failed", errors.New("Unauthorized")
+	}
 	updatedTag, err := t.tagRepository.Update(t.context, &domain.Tag{
 		TagID: param.ID,
 		Name:  dto.Name,

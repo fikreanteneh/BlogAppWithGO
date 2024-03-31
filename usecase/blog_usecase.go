@@ -6,6 +6,7 @@ import (
 	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
 	"context"
+	"errors"
 	"time"
 )
 
@@ -24,7 +25,6 @@ type BlogUseCase struct {
 
 // CreateBlog implements usecase.BlogUseCase.
 func (b *BlogUseCase) CreateBlog(currUser *model.AuthenticatedUser, dto *model.BlogCreate, param any) (*model.BlogInfo, string, error) {
-	//TODO : Authorization Handling
 	//TODO : Validation Handling
 	createdBlog, err := b.blogRepository.Create(b.context, &domain.Blog{
 		UserID:  currUser.UserID,
@@ -66,8 +66,13 @@ func (b *BlogUseCase) CreateBlog(currUser *model.AuthenticatedUser, dto *model.B
 
 // DeleteBlogByID implements usecase.BlogUseCase.
 func (b *BlogUseCase) DeleteBlogByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Blog, string, error) {
-		//TODO : Authorization Handling
-	//TODO : Validation Handling
+	blog, err := b.blogRepository.GetByID(b.context, param.ID)
+	if err != nil {
+		return nil, "Blog Not Found", err
+	}
+	if currUser.Role != "ADMIN" || currUser.UserID != blog.UserID {
+		return nil, "Unauthorized", errors.New("Unauthorized")
+	}
 	deletedBlog, err := b.blogRepository.Delete(b.context, param.ID)
 	if err != nil {
 		return nil,"Blog Deletion UNsuccessful", err
@@ -77,8 +82,6 @@ func (b *BlogUseCase) DeleteBlogByID(currUser *model.AuthenticatedUser, dto any,
 
 // GetBlogByID implements usecase.BlogUseCase.
 func (b *BlogUseCase) GetBlogByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.BlogInfo, string, error) {
-		//TODO : Authorization Handling
-	//TODO : Validation Handling
 	fetchedBlog, err := b.blogRepository.GetByID(b.context, param.ID)
 	if err != nil {
 		return nil, "Blog Not Found", err
@@ -109,8 +112,6 @@ func (b *BlogUseCase) GetBlogByID(currUser *model.AuthenticatedUser, dto any, pa
 
 // GetBlogs implements usecase.BlogUseCase.
 func (b *BlogUseCase) GetBlogs(currUser *model.AuthenticatedUser, dto any, param *model.SearchParam) (*[]*model.BlogInfo, string, error) {
-		//TODO : Authorization Handling
-	//TODO : Validation Handling
 	fetchedBlogs, err := b.blogRepository.GetAll(b.context, param.Search)
 	if err != nil {
 		return nil, "Blogs Not Found", err
@@ -144,9 +145,15 @@ func (b *BlogUseCase) GetBlogs(currUser *model.AuthenticatedUser, dto any, param
 
 // UpdateBlogByID implements usecase.BlogUseCase.
 func (b *BlogUseCase) UpdateBlogByID(currUser *model.AuthenticatedUser, dto *model.BlogUpdate, param *model.IdParam) (*model.BlogInfo, string, error) {
-		//TODO : Authorization Handling
 	//TODO : Validation Handling
-	_, err := b.blogRepository.Update(b.context, &domain.Blog{
+	blog, err := b.blogRepository.GetByID(b.context, param.ID)
+	if err != nil {
+		return nil, "Blog Not Found", err
+	}
+	if blog.UserID != currUser.UserID {
+		return nil, "Unauthorized", nil
+	}
+	_, err = b.blogRepository.Update(b.context, &domain.Blog{
 		BlogID: param.ID,
 		Title:   dto.Title,
 		Content: dto.Content,

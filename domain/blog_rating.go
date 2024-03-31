@@ -21,4 +21,5 @@ type BlogRatingRepository interface {
 	GetRatingByUserID(c context.Context, userID string) (*[]*BlogRating, error)
 	UpdateRating(c context.Context, rating *BlogRating) (*BlogRating, error)
 	DeleteRating(c context.Context, ratingID string) (*BlogRating, error)
+	GetRatingByID(c context.Context, ratingID string) (*BlogRating, error)
 }

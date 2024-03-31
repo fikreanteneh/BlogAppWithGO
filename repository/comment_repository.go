@@ -19,23 +19,35 @@ type CommentRepository struct {
 	collection string
 }
 
+
+
 func NewCommentRepository(db *mongo.Database, collection string) domain.CommentRepository {
 	return &CommentRepository{
 		database:   db,
 		collection: collection,
 	}
 }
+// GetByID implements domain.CommentRepository.
+func (m *CommentRepository) GetByID(c context.Context, commentId string) (*domain.Comment, error) {
+	filter := bson.M{"_id": commentId}
+	var comment domain.Comment
+	err := m.database.Collection(m.collection).FindOne(c, filter).Decode(&comment)
+	if err != nil {
+		return nil, err
+	}
+	return &comment, nil
+}
 
 // Create implements domain.CommentRepository.
 func (m *CommentRepository) Create(c context.Context, comment *domain.Comment) (*domain.Comment, error) {
 	comment.CommentID = primitive.NewObjectID().Hex()
-  
-	  _, err := m.database.Collection(m.collection).InsertOne(c, *comment)
-	  if err != nil{ 
+
+	_, err := m.database.Collection(m.collection).InsertOne(c, *comment)
+	if err != nil {
 		return nil, err
-	  }
-	
-	  return comment, nil
+	}
+
+	return comment, nil
 }
 
 // Delete implements domain.CommentRepository.
@@ -86,7 +98,7 @@ func (m *CommentRepository) Update(c context.Context, comment *domain.Comment) (
 	filter := bson.M{"_id": comment.CommentID}
 	update := bson.M{
 		"$set": bson.M{
-			"content": comment.Content,
+			"content":    comment.Content,
 			"updated_at": time.Now(),
 		},
 	}
@@ -97,5 +109,3 @@ func (m *CommentRepository) Update(c context.Context, comment *domain.Comment) (
 
 	return comment, nil
 }
-
-

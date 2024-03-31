@@ -19,8 +19,9 @@ type AuthUseCase struct {
 
 // AdminRegister implements usecase.AuthUseCase.
 func (a *AuthUseCase) AdminRegister(currUser *model.AuthenticatedUser, userCreate *model.UserCreate, param any) (*model.UserInfo, string, error) {
-		//TODO : Authorization Handling
-	//TODO : Validation Handling
+	if currUser.Role != "ADMIN" {
+		return nil, "User Creation Unseccssfull", errors.New("Unauthorized")
+	}
 
 	password, err := utils.EncryptPassword(userCreate.Password)
 	if err != nil {

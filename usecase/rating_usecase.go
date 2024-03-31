@@ -6,6 +6,7 @@ import (
 	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
 	"context"
+	"errors"
 	"time"
 )
 
@@ -17,8 +18,14 @@ type RatingUseCase struct {
 
 // DeleteRatingByBlogID implements usecase.RatingUseCase.
 func (r *RatingUseCase) DeleteRatingByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.BlogRating, string, error) {
-	//TODO : Authorization Handling
-	//TODO : Validation Handling
+	rating, err := r.ratingRepository.GetRatingByID(r.context, param.ID)
+	if err != nil {
+		return nil, "Rating Not Found", err
+	}
+	if rating.UserID != currUser.UserID {
+		return nil, "Unauthorized", errors.New("Unauthorized")
+	}
+
 	deletedRating, err := r.ratingRepository.DeleteRating(r.context, param.ID)
 	if err != nil {
 		return nil,"Rating Deletion Failed", err

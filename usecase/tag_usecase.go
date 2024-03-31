@@ -6,7 +6,6 @@ import (
 	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
 	"context"
-	"fmt"
 )
 
 type TagUseCase struct {
@@ -65,7 +64,6 @@ func (t *TagUseCase) GetTags(currUser *model.AuthenticatedUser, dto any, param *
 func (t *TagUseCase) UpdateTagByID(currUser *model.AuthenticatedUser, dto *model.TagCreate, param *model.IdParam) (*domain.Tag, string, error) {
 	//TODO: Authorization Handling
 	//TODO: Validation Handling
-	fmt.Println("==========Tag ID: ", param.ID, dto.Name)
 	updatedTag, err := t.tagRepository.Update(t.context, &domain.Tag{
 		TagID: param.ID,
 		Name:  dto.Name,

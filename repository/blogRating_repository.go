@@ -19,6 +19,13 @@ type BlogRatingRepository struct {
 	collection string
 }
 
+// DeleteRatingByBlogID implements domain.BlogRatingRepository.
+func (b *BlogRatingRepository) DeleteRatingByBlogID(c context.Context, blogID string) (any, error) {
+	filter := bson.M{"blog_id": blogID}
+	_, err := b.database.Collection(b.collection).DeleteMany(c, filter)
+	return nil, err
+}
+
 // GetRatingByID implements domain.BlogRatingRepository.
 func (b *BlogRatingRepository) GetRatingByID(c context.Context, ratingID string) (*domain.BlogRating, error) {
 	filter := bson.M{"_id": ratingID}

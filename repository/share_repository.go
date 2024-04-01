@@ -18,6 +18,13 @@ type ShareRepository struct {
 	collection string
 }
 
+// DeleteByBlogId implements domain.ShareRepository.
+func (s *ShareRepository) DeleteByBlogId(c context.Context, blogID string) (any, error) {
+	filter := bson.M{"blog_id": blogID}
+	_, err := s.database.Collection(s.collection).DeleteMany(c, filter)
+	return nil, err
+}
+
 func NewShareRepository(db *mongo.Database, collection string) domain.ShareRepository {
 	return &ShareRepository{
 		database:   db,
@@ -28,13 +35,13 @@ func NewShareRepository(db *mongo.Database, collection string) domain.ShareRepos
 // Create implements domain.ShareRepository.
 func (s *ShareRepository) Create(c context.Context, share *domain.Share) (*domain.Share, error) {
 	share.ShareID = primitive.NewObjectID().Hex()
-  
-	  _, err := s.database.Collection(s.collection).InsertOne(c, *share)
-	  if err != nil{ 
+
+	_, err := s.database.Collection(s.collection).InsertOne(c, *share)
+	if err != nil {
 		return nil, err
-	  }
-	
-	  return share, nil
+	}
+
+	return share, nil
 }
 
 // Delete implements domain.ShareRepository.
@@ -48,7 +55,7 @@ func (s *ShareRepository) Delete(c context.Context, shareID string) (*domain.Sha
 	}
 
 	return &share, nil
-	
+
 }
 
 // GetByBlogID implements domain.ShareRepository.
@@ -108,5 +115,3 @@ func (s *ShareRepository) GetByUserID(c context.Context, userID string) (*[]*dom
 
 	return &shares, nil
 }
-
-

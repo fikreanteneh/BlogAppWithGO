@@ -19,6 +19,7 @@ type CommentRepository interface {
 	GetByBlogID(c context.Context, blogID string) (*[]*Comment, error)
 	Create(c context.Context, comment *Comment) (*Comment, error)
 	Delete(c context.Context, commentID string) (*Comment, error)
+	DeleteByBlogId(c context.Context, blogID string) (any, error)
 	Update(c context.Context, comment *Comment) (*Comment, error)
 	GetByID(c context.Context, commentId string) (*Comment, error)
 }

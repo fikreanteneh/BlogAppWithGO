@@ -18,6 +18,13 @@ type LikeRepository struct {
 	collection string
 }
 
+// DeleteByBlogId implements domain.LikeRepository.
+func (l *LikeRepository) DeleteByBlogId(c context.Context, blogID string) (any, error) {
+	filter := bson.M{"blog_id": blogID}
+	_, err := l.database.Collection(l.collection).DeleteMany(c, filter)
+	return nil, err
+}
+
 func NewLikeRepository(db *mongo.Database, collection string) domain.LikeRepository {
 	return &LikeRepository{
 		database:   db,
@@ -28,13 +35,13 @@ func NewLikeRepository(db *mongo.Database, collection string) domain.LikeReposit
 // Create implements domain.LikeRepository.
 func (l *LikeRepository) Create(c context.Context, like *domain.Like) (*domain.Like, error) {
 	like.LikeID = primitive.NewObjectID().Hex()
-	  _, err := l.database.Collection(l.collection).InsertOne(c, *like)
-	  if err != nil{ 
+	_, err := l.database.Collection(l.collection).InsertOne(c, *like)
+	if err != nil {
 		return nil, err
-	  }
-	
-	  return like, nil
-	
+	}
+
+	return like, nil
+
 }
 
 // Delete implements domain.LikeRepository.
@@ -108,5 +115,3 @@ func (l *LikeRepository) GetByUserID(c context.Context, userID string) (*[]*doma
 
 	return &likes, nil
 }
-
-

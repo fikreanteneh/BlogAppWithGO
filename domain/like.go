@@ -18,4 +18,5 @@ type LikeRepository interface {
 	GetByBlogID(c context.Context, blogID string) (*[]*Like, error)
 	GetByUserID(c context.Context, userID string) (*[]*Like, error)
 	Delete(c context.Context, likeID string) (*Like, error)
+	DeleteByBlogId(c context.Context, blogID string) (any, error)
 }

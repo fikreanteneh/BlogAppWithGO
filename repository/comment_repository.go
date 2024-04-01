@@ -27,6 +27,7 @@ func NewCommentRepository(db *mongo.Database, collection string) domain.CommentR
 		collection: collection,
 	}
 }
+
 // GetByID implements domain.CommentRepository.
 func (m *CommentRepository) GetByID(c context.Context, commentId string) (*domain.Comment, error) {
 	filter := bson.M{"_id": commentId}
@@ -108,4 +109,15 @@ func (m *CommentRepository) Update(c context.Context, comment *domain.Comment) (
 	}
 
 	return comment, nil
+}
+
+
+// DeleteByBlogId implements domain.CommentRepository.
+func (m *CommentRepository) DeleteByBlogId(c context.Context, blogID string) (any, error) {
+	filter := bson.M{"blog_id": blogID}
+	_, err := m.database.Collection(m.collection).DeleteMany(c, filter)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
 }

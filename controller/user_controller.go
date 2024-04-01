@@ -56,3 +56,6 @@ func (uc *UserController) GetSharesByID(c *gin.Context) {
 func (uc *UserController) GetLikesByID(c *gin.Context) {
 	GetHandler(c, uc.userUseCase.GetLikesByID, nil, &model.IdParam{ID: c.Param("user_id")})
 }
+func (uc *UserController) GetRatingByID(c *gin.Context) {
+	GetHandler(c, uc.userUseCase.GetRatingByID, nil, &model.IdParam{ID: c.Param("user_id")})
+}

@@ -29,7 +29,7 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 
 	authUseCase := usecase.NewAuthUseCase(&ctx, env, &userRepository )
 	profileUsecase := usecase.NewProfileUseCase(&ctx, env, &userRepository)
-	userUseCase := usecase.NewUserUseCase(&ctx, env, &userRepository, &followRepository, &blogRepository, &shareRepository, &likeRepository, &blogTagRepository)
+	userUseCase := usecase.NewUserUseCase(&ctx, env, &userRepository, &followRepository, &blogRepository, &shareRepository, &likeRepository, &blogTagRepository, &ratingRepository)
 	blogUseCase := usecase.NewBlogUseCase(&ctx, env, &blogRepository, &userRepository, &shareRepository, &likeRepository, &ratingRepository, &tagRepository, &blogTagRepository)
 	tagUseCase := usecase.NewTagUseCase(&ctx, env, &tagRepository)
 	notificationUseCase := usecase.NewNotificationUseCase(&ctx, env, &notificationRepository)
@@ -78,6 +78,7 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 	userRouter.GET("/:user_id/blogs", userController.GetBlogsByID)
 	userRouter.GET("/:user_id/shares", userController.GetSharesByID)
 	userRouter.GET("/:user_id/likes", userController.GetLikesByID)
+	userRouter.GET("/:user_id/ratings", userController.GetRatingByID)
 
 	notificationRouter := gin.Group("notification")
 	notificationRouter.GET("/", notificationController.GetNotification)

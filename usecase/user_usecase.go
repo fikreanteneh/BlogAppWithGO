@@ -9,14 +9,41 @@ import (
 )
 
 type UserUseCase struct {
-	context          context.Context
-	environment      config.Environment
-	userRepository   domain.UserRepository
-	followRepository domain.FollowRepository
-	blogRepository   domain.BlogRepository
-	shareRepository  domain.ShareRepository
-	likeRepository   domain.LikeRepository
+	context           context.Context
+	environment       config.Environment
+	userRepository    domain.UserRepository
+	followRepository  domain.FollowRepository
+	blogRepository    domain.BlogRepository
+	shareRepository   domain.ShareRepository
+	likeRepository    domain.LikeRepository
 	blogTagRepository domain.BlogTagRepository
+	ratingRepository domain.BlogRatingRepository
+}
+
+// GetRatingByID implements usecase.UserUseCase.
+func (u *UserUseCase) GetRatingByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.RatingBlogInfo, string, error) {
+	ratings, err := u.ratingRepository.GetRatingByUserID(u.context, param.ID)
+	if err != nil {
+		return nil, "", err
+	}
+	var lists []*model.RatingBlogInfo
+	for _, rating := range *ratings {
+		blog, err := u.blogRepository.GetByID(u.context, rating.BlogID)
+		if err != nil {
+			continue
+		}
+		lists = append(lists, &model.RatingBlogInfo{
+			Rating: *rating,
+			Blog:    model.BlogInfo{
+				BlogID: blog.BlogID,
+				UserID: blog.UserID,
+				Title: blog.Title,
+				Content: blog.Content,
+			},
+		})
+	
+	}
+	return &lists, "Ratings Fetched Successfully", nil
 }
 
 // FollowUserByID implements usecase.UserUseCase.
@@ -43,7 +70,7 @@ func (u *UserUseCase) GetBlogsByID(currUser *model.AuthenticatedUser, dto any, p
 
 // GetFollowersByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetFollowersByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.UserInfo, string, error) {
-	follows , err := u.followRepository.GetByFollowedID(u.context, param.ID)
+	follows, err := u.followRepository.GetByFollowedID(u.context, param.ID)
 	if err != nil {
 		return nil, "", err
 	}
@@ -64,7 +91,7 @@ func (u *UserUseCase) GetFollowersByID(currUser *model.AuthenticatedUser, dto an
 
 // GetFollowingsByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetFollowingsByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.UserInfo, string, error) {
-		follows , err := u.followRepository.GetByFollowerID(u.context, param.ID)
+	follows, err := u.followRepository.GetByFollowerID(u.context, param.ID)
 	if err != nil {
 		return nil, "", err
 	}
@@ -102,7 +129,7 @@ func (u *UserUseCase) GetLikesByID(currUser *model.AuthenticatedUser, dto any, p
 
 // GetSharesByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetSharesByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*domain.Blog, string, error) {
-		shares, err := u.shareRepository.GetByUserID(u.context, param.ID)
+	shares, err := u.shareRepository.GetByUserID(u.context, param.ID)
 	if err != nil {
 		return nil, "", err
 	}
@@ -121,7 +148,7 @@ func (u *UserUseCase) GetSharesByID(currUser *model.AuthenticatedUser, dto any, 
 func (u *UserUseCase) GetUserByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.UserInfo, string, error) {
 	user, err := u.userRepository.GetById(u.context, param.ID)
 	if err != nil {
-		return nil,"", err
+		return nil, "", err
 	}
 	return &model.UserInfo{
 		Username: user.Username,
@@ -160,18 +187,16 @@ func (u *UserUseCase) UnfollowUserByID(currUser *model.AuthenticatedUser, dto an
 	return follow, "Unfollowed User Successfully", nil
 }
 
-func NewUserUseCase(context *context.Context, environment *config.Environment, userRepository *domain.UserRepository, followRepository *domain.FollowRepository, blogRepository *domain.BlogRepository, shareRepository *domain.ShareRepository, likeRepository *domain.LikeRepository, blogTagRepository *domain.BlogTagRepository) usecase.UserUseCase {
+func NewUserUseCase(context *context.Context, environment *config.Environment, userRepository *domain.UserRepository, followRepository *domain.FollowRepository, blogRepository *domain.BlogRepository, shareRepository *domain.ShareRepository, likeRepository *domain.LikeRepository, blogTagRepository *domain.BlogTagRepository, ratingRepository *domain.BlogRatingRepository) usecase.UserUseCase {
 	return &UserUseCase{
-		context:          *context,
-		environment:      *environment,
-		userRepository:   *userRepository,
-		followRepository: *followRepository,
-		blogRepository:   *blogRepository,
-		shareRepository:  *shareRepository,
-		likeRepository:   *likeRepository,
+		context:           *context,
+		environment:       *environment,
+		userRepository:    *userRepository,
+		followRepository:  *followRepository,
+		blogRepository:    *blogRepository,
+		shareRepository:   *shareRepository,
+		likeRepository:    *likeRepository,
 		blogTagRepository: *blogTagRepository,
-
+		ratingRepository: *ratingRepository,
 	}
 }
-
-

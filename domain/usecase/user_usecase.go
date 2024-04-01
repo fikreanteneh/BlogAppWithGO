@@ -14,4 +14,5 @@ type UserUseCase interface {
     GetBlogsByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*domain.Blog, string, error)
     GetSharesByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*domain.Blog, string, error)
     GetLikesByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*domain.Blog, string, error)
+    GetRatingByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.RatingBlogInfo, string, error)
 }

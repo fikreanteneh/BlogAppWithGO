@@ -3,6 +3,7 @@ package repository
 import (
 	"BlogApp/domain"
 	"context"
+	"fmt"
 	"time"
 
 	// "time"
@@ -117,7 +118,9 @@ func (m *CommentRepository) DeleteByBlogId(c context.Context, blogID string) (an
 	filter := bson.M{"blog_id": blogID}
 	_, err := m.database.Collection(m.collection).DeleteMany(c, filter)
 	if err != nil {
+		fmt.Println("=========", err)
 		return nil, err
 	}
+	print("========= Deleted SUccessfully")
 	return nil, nil
 }

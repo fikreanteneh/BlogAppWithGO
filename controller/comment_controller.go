@@ -25,13 +25,13 @@ func (cc *CommentController) GetCommentByBlogID(c *gin.Context) {
 }
 
 func (cc *CommentController) CreateComment(c *gin.Context) {
-    GetHandler(c, cc.commentUseCase.CreateCommentByBlogID, nil, &model.IdParam{ID: c.Param("blog_id")})
+    PostHandler(c, cc.commentUseCase.CreateCommentByBlogID, nil, &model.IdParam{ID: c.Param("blog_id")})
 }
 
 func (cc *CommentController) UpdateComment(c *gin.Context) {
-    GetHandler(c, cc.commentUseCase.UpdateCommentByID, nil, &model.IdParam{ID: c.Param("comment_id")})
+    PutHandler(c, cc.commentUseCase.UpdateCommentByID, nil, &model.IdParam{ID: c.Param("comment_id")})
 }
 
 func (cc *CommentController) DeleteComment(c *gin.Context) {
-    GetHandler(c, cc.commentUseCase.DeleteCommentByBlogID, nil, &model.IdParam{ID: c.Param("comment_id")})
+    DeleteHandler(c, cc.commentUseCase.DeleteCommentByBlogID, nil, &model.IdParam{ID: c.Param("comment_id")})
 }

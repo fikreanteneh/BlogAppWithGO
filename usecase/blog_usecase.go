@@ -70,7 +70,7 @@ func (b *BlogUseCase) DeleteBlogByID(currUser *model.AuthenticatedUser, dto any,
 	if err != nil {
 		return nil, "Blog Not Found", err
 	}
-	if currUser.Role != "ADMIN" || currUser.UserID != blog.UserID {
+	if currUser.Role != "ADMIN" && currUser.UserID != blog.UserID {
 		return nil, "Unauthorized", errors.New("Unauthorized")
 	}
 	deletedBlog, err := b.blogRepository.Delete(b.context, param.ID)

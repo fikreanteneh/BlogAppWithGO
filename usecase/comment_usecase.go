@@ -39,7 +39,7 @@ func (c *CommentUseCase) DeleteCommentByBlogID(currUser *model.AuthenticatedUser
 	if err != nil {
 		return nil, "Comment Not Found", errors.New("Comment Not Found")
 	}
-	if currUser.Role != "ADMIN" || currUser.UserID != comment.UserID {
+	if currUser.Role != "ADMIN" && currUser.UserID != comment.UserID {
 		return nil, "Unauthorized", errors.New("Unauthorized")
 	}
 	deletedComment, err := c.commentRepository.Delete(c.context, param.ID)
@@ -65,7 +65,7 @@ func (c *CommentUseCase) UpdateCommentByID(currUser *model.AuthenticatedUser, dt
 	if err != nil {
 		return nil, "Comment Not Found", errors.New("Comment Not Found")
 	}
-	if currUser.Role != "ADMIN" || currUser.UserID != comment.UserID {
+	if currUser.Role != "ADMIN" && currUser.UserID != comment.UserID {
 		return nil, "Unauthorized", errors.New("Unauthorized")
 	}
 	updatedComment, err := c.commentRepository.Update(c.context, &domain.Comment{

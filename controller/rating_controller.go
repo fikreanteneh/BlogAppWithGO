@@ -24,6 +24,10 @@ func (rc *RatingController) GetRatingsByBlogID(c *gin.Context) {
 	GetHandler(c, rc.ratingUseCase.GetRatingsByBlogID, nil, &model.IdParam{ID: c.Param("blog_id")})
 }
 
+
+func (rc *RatingController) GetRatingsByUserID(c *gin.Context) {
+	GetHandler(c, rc.ratingUseCase.GetRatingsByUserID, nil, &model.IdParam{ID: c.Param("user_id")})
+}
 func (rc *RatingController) RateBlog(c *gin.Context) {
 	PostHandler(c, rc.ratingUseCase.RateBlogByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("blog_id")})
 }

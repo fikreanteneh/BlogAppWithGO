@@ -28,3 +28,12 @@ type RatingCreate struct {
 	Rating   int    `json:"rating"`
 
 }
+
+type RatingInfo struct{
+
+	BlogID  string `json:"blog_id"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	Rating   int    `json:"rating"`
+
+}

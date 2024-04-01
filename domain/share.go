@@ -18,4 +18,7 @@ type ShareRepository interface {
 	GetByBlogID(c context.Context, blogID string) (*[]*Share, error)
 	GetByUserID(c context.Context, userID string) (*[]*Share, error)
 	Delete(c context.Context, shareID string) (*Share, error)
+
+	//delete share by blog id
+	DeleteShareByBlogID(c context.Context, blogID string) error
 }

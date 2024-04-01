@@ -51,7 +51,9 @@ func (l *LikeUseCase) LikeBlogByID(currUser *model.AuthenticatedUser, dto any, p
 
 // UnlikeBlogByID implements usecase.LikeUseCase.
 func (l *LikeUseCase) UnlikeBlogByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Like, string, error) {
-	    unlikedBlog, err := l.likeRepository.Delete(l.context, param.ID)
+
+	unlikedBlog, err := l.likeRepository.Delete(l.context, param.ID)
+
     if err != nil {
         return nil, "Unliking was Unseccessfull",err
     }

@@ -15,4 +15,7 @@ type BlogTagRepository interface {
 	GetByBlogID(c context.Context, blogID string) (*[]*BlogTag, error)
 	GetByTagID(c context.Context, tagID string) (*[]*BlogTag, error)
 	Delete(c context.Context, blogTagID string) (*BlogTag, error)
+
+	//add delete Tag by blog ID
+	DeleteTagByBlogID(c context.Context, blogID string) error
 }

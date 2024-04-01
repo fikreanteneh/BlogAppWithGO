@@ -60,39 +60,21 @@ func (b *BlogRatingRepository) DeleteRating(c context.Context, ratingID string) 
 	return &blogRating, nil
 }
 
+// DeleteByBlogID deletes ratings associated with a specific blog ID.
+func (b *BlogRatingRepository) DeleteRatingByBlogID(c context.Context, blogID string) error {
+	filter := bson.M{"blog_id": blogID}
+
+	_, err := b.database.Collection(b.collection).DeleteMany(c, filter)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+
 // GetRatingByBlogID implements domain.BlogRatingRepository.
 func (b *BlogRatingRepository) GetRatingByBlogID(c context.Context, blogID string) (*[]*domain.BlogRating, error) {
 	filter := bson.M{"blog_id": blogID}
-
-	// Perform the find operation
-	cursor, err := b.database.Collection(b.collection).Find(c, filter)
-	if err != nil {
-		return nil, err
-	}
-	defer cursor.Close(c)
-
-	// Iterate through the cursor and decode each document into a User struct
-	var blogRatings []*domain.BlogRating
-	for cursor.Next(c) {
-		var blogRating domain.BlogRating
-		if err := cursor.Decode(&blogRating); err != nil {
-			cursor.Close(c)
-			return nil, err
-		}
-		blogRatings = append(blogRatings, &blogRating)
-	}
-
-	// Check if any error occurred during cursor iteration
-	if err := cursor.Err(); err != nil {
-		return nil, err
-	}
-
-	return &blogRatings, nil
-}
-
-// GetRatingByUserID implements domain.BlogRatingRepository.
-func (b *BlogRatingRepository) GetRatingByUserID(c context.Context, userID string) (*[]*domain.BlogRating, error) {
-	filter := bson.M{"user_id": userID}
 
 	// Perform the find operation
 	cursor, err := b.database.Collection(b.collection).Find(c, filter)
@@ -133,4 +115,34 @@ func (b *BlogRatingRepository) UpdateRating(c context.Context, rating *domain.Bl
 	}
 
 	return rating, nil
+}
+
+// GetRatingByUserID implements domain.BlogRatingRepository.
+func (b *BlogRatingRepository) GetRatingByUserID(c context.Context, userID string) (*[]*domain.BlogRating, error) {
+	filter := bson.M{"user_id": userID}
+
+	// Perform the find operation
+	cursor, err := b.database.Collection(b.collection).Find(c, filter)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(c)
+
+	// Iterate through the cursor and decode each document into a User struct
+	var blogRatings []*domain.BlogRating
+	for cursor.Next(c) {
+		var blogRating domain.BlogRating
+		if err := cursor.Decode(&blogRating); err != nil {
+			cursor.Close(c)
+			return nil, err
+		}
+		blogRatings = append(blogRatings, &blogRating)
+	}
+
+	// Check if any error occurred during cursor iteration
+	if err := cursor.Err(); err != nil {
+		return nil, err
+	}
+
+	return &blogRatings, nil
 }

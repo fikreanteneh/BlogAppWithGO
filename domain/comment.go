@@ -21,4 +21,7 @@ type CommentRepository interface {
 	Delete(c context.Context, commentID string) (*Comment, error)
 	Update(c context.Context, comment *Comment) (*Comment, error)
 	GetByID(c context.Context, commentId string) (*Comment, error)
+
+	//delete comment by blogID
+	DeleteCommentByBlogID(c context.Context, blogID string) error
 }

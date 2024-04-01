@@ -36,9 +36,9 @@ func (c *CommentUseCase) CreateCommentByBlogID(currUser *model.AuthenticatedUser
 func (c *CommentUseCase) DeleteCommentByBlogID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Comment, string, error) {
 	comment, err := c.commentRepository.GetByID(c.context, param.ID)
 	if err != nil {
-		return nil, "Comment Not Found", errors.New("Comment Not Found")
+		return nil, "Comment Not Found", errors.New("comment Not Found")
 	}
-	if currUser.Role != "ADMIN" || currUser.UserID != comment.UserID {
+	if currUser.Role != "ADMIN" && currUser.UserID != comment.UserID {
 		return nil, "Unauthorized", errors.New("Unauthorized")
 	}
 	deletedComment, err := c.commentRepository.Delete(c.context, param.ID)
@@ -61,9 +61,9 @@ func (c *CommentUseCase) GetCommentsByBlogID(currUser *model.AuthenticatedUser, 
 func (c *CommentUseCase) UpdateCommentByID(currUser *model.AuthenticatedUser, dto *model.CommentCreate, param *model.IdParam) (*domain.Comment, string, error) {
 	comment, err := c.commentRepository.GetByID(c.context, param.ID)
 	if err != nil {
-		return nil, "Comment Not Found", errors.New("Comment Not Found")
+		return nil, "Comment Not Found", errors.New("comment Not Found")
 	}
-	if currUser.Role != "ADMIN" || currUser.UserID != comment.UserID {
+	if currUser.UserID != comment.UserID {
 		return nil, "Unauthorized", errors.New("Unauthorized")
 	}
 	updatedComment, err := c.commentRepository.Update(c.context, &domain.Comment{

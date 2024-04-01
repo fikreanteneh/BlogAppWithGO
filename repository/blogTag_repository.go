@@ -18,6 +18,16 @@ type BlogTagRepository struct {
 	collection string
 }
 
+// DeleteTagByBlogID implements domain.BlogTagRepository.
+func (b *BlogTagRepository) DeleteTagByBlogID(c context.Context, blogID string) error {
+	filter := bson.M{"blog_id": blogID}
+
+	_, err := b.database.Collection(b.collection).DeleteMany(c, filter)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func NewBlogTagRepository(db *mongo.Database, collection string) domain.BlogTagRepository {
 	return &BlogTagRepository{
@@ -109,5 +119,3 @@ func (b *BlogTagRepository) GetByTagID(c context.Context, tagID string) (*[]*dom
 
 	return &blogTags, nil
 }
-
-

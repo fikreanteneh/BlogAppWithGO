@@ -36,18 +36,6 @@ func (b *BlogRepository) Create(c context.Context, blog *domain.Blog) (*domain.B
 	return blog, nil
 }
 
-// Delete implements domain.BlogRepository.
-func (b *BlogRepository) Delete(c context.Context, blogID string) (*domain.Blog, error) {
-	filter := bson.M{"_id": blogID}
-	var blog domain.Blog
-	err := b.database.Collection(b.collection).FindOneAndDelete(c, filter).Decode(&blog)
-	if err != nil {
-		return nil, err
-	}
-
-	return &blog, nil
-}
-
 // GetAll implements domain.BlogRepository.
 func (b *BlogRepository) GetAll(c context.Context, param string) (*[]*domain.Blog, error) {
 	filter := bson.M{
@@ -137,4 +125,17 @@ func (b *BlogRepository) Update(c context.Context, blog *domain.Blog) (*domain.B
 	return blog, nil
 }
 
+
+// Delete implements domain.BlogRepository.
+func (b *BlogRepository) Delete(c context.Context, blogID string) (*domain.Blog, error) {
+	filter := bson.M{"_id": blogID}
+
+	var deletedBlog domain.Blog
+	err := b.database.Collection(b.collection).FindOneAndDelete(c, filter).Decode(&deletedBlog)
+	if err != nil {
+		return nil, err
+	}
+
+	return &deletedBlog, nil
+}
 

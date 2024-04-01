@@ -17,6 +17,9 @@ type ProfileUseCase struct {
 // DeleteProfile implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) DeleteProfile(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.UserInfo, string, error) {
 	user, err := p.UserRepository.GetById(p.context, currUser.UserID)
+	if err != nil {	
+		return nil, "", err
+	}
     deleted, err := p.UserRepository.Delete(p.context, user)
     if err != nil {
         return nil, "", err

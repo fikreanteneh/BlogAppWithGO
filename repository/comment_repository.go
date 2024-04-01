@@ -19,7 +19,16 @@ type CommentRepository struct {
 	collection string
 }
 
+// DeleteCommentByBlogID implements domain.CommentRepository.
+func (m *CommentRepository) DeleteCommentByBlogID(c context.Context, blogID string) error {
+	filter := bson.M{"blog_id": blogID}
 
+	_, err := m.database.Collection(m.collection).DeleteMany(c, filter)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func NewCommentRepository(db *mongo.Database, collection string) domain.CommentRepository {
 	return &CommentRepository{
@@ -27,6 +36,7 @@ func NewCommentRepository(db *mongo.Database, collection string) domain.CommentR
 		collection: collection,
 	}
 }
+
 // GetByID implements domain.CommentRepository.
 func (m *CommentRepository) GetByID(c context.Context, commentId string) (*domain.Comment, error) {
 	filter := bson.M{"_id": commentId}

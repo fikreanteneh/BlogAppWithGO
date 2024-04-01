@@ -1,0 +1,1907 @@
+{
+	"info": {
+		"_postman_id": "cf7daaf8-929f-4610-a28d-f771c1154f75",
+		"name": "Complete Blog App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23655509"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"yanet\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"yanet.anteneh01@gmail\",\r\n    \"name\": \"Yanet\",\r\n    \"bio\": \"Yesssssssssssssssssssssssssssssssssssssss Nooooooooooooooooooooooooooooooooo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"yanet\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"yanet.anteneh01@gmail\",\r\n    \"name\": \"Yanet\",\r\n    \"bio\": \"Yesssssssssssssssssssssssssssssssssssssss Nooooooooooooooooooooooooooooooooo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:44:29 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "238"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"success\": true,\n    \"message\": \"Account Created Successfull\",\n    \"data\": {\n        \"user_id\": \"6605581d385a49408de1e6b4\",\n        \"username\": \"yanet\",\n        \"name\": \"Yanet\",\n        \"bio\": \"Yesssssssssssssssssssssssssssssssssssssss Nooooooooooooooooooooooooooooooooo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"fikremariam\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fikremariam\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:45:38 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "326"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"success\": true,\n    \"message\": \"Login Successfull\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "adminRegister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"mathewos\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"mathewos.anteneh01@gmail\",\r\n    \"name\": \"mathewos\",\r\n    \"bio\": \"Yesssssssssssssssssssssssssssssssssssssss Nooooooooooooooooooooooooooooooooo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/adminRegister",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"adminRegister"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "adminRegister",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"mathewos\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"mathewos.anteneh01@gmail\",\r\n    \"name\": \"mathewos\",\r\n    \"bio\": \"Yesssssssssssssssssssssssssssssssssssssss Nooooooooooooooooooooooooooooooooo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/adminRegister",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"adminRegister"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:44:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "244"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"success\": true,\n    \"message\": \"Account Created Successfull\",\n    \"data\": {\n        \"user_id\": \"6605583b385a49408de1e6b5\",\n        \"username\": \"mathewos\",\n        \"name\": \"mathewos\",\n        \"bio\": \"Yesssssssssssssssssssssssssssssssssssssss Nooooooooooooooooooooooooooooooooo\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "getProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProfile",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePassword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/updatePassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateEmail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/updateEmail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"updateEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUsername",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/updateUsername",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"updateUsername"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfilePicture",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/updateProfilePicture",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"updateProfilePicture"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFollowersByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/followers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"followers"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "followUserByID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/follow",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"follow"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unfollowUserByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/follow",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"follow"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFollowingsByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/followings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"followings"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBlogsByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/blogs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"blogs"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSharesByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/shares",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"shares"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLikesByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:user_id/likes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "user_id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification",
+			"item": [
+				{
+					"name": "getNotification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notification/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notification",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteNotificationByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notification/:notification_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notification",
+								":notification_id"
+							],
+							"variable": [
+								{
+									"key": "notification_id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "blog",
+			"item": [
+				{
+					"name": "getAllBlogs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getAllBlogs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/blog/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:50:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "830"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Blogs Found\",\n    \"data\": [\n        {\n            \"blog_id\": \"6604b8fba779d44fb5a86242\",\n            \"user_id\": \"6604afe899c21bf827e61e0e\",\n            \"title\": \"Password\",\n            \"content\": \"akjksaxb akckasbc cjkabcac\",\n            \"createtimestamp\": \"2024-03-28 00:25:31.565 +0000 UTC\",\n            \"updatetimestamp\": \"2024-03-28 00:25:31.565 +0000 UTC\",\n            \"tags\": null\n        },\n        {\n            \"blog_id\": \"6604b8fea779d44fb5a86243\",\n            \"user_id\": \"6604afe899c21bf827e61e0e\",\n            \"title\": \"Password\",\n            \"content\": \"akjksaxb akckasbc cjkabcac\",\n            \"createtimestamp\": \"2024-03-28 00:25:34.839 +0000 UTC\",\n            \"updatetimestamp\": \"2024-03-28 00:25:34.839 +0000 UTC\",\n            \"tags\": null\n        },\n        {\n            \"blog_id\": \"6605592d08ec373b07b4d8fe\",\n            \"user_id\": \"6604afe899c21bf827e61e0e\",\n            \"title\": \"First Test\",\n            \"content\": \"akjksaxb akckasbc cjkabcac\",\n            \"createtimestamp\": \"2024-03-28 11:49:01.029 +0000 UTC\",\n            \"updatetimestamp\": \"2024-03-28 11:49:01.029 +0000 UTC\",\n            \"tags\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "getByBlogID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/6604b8fea779d44fb5a86243",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								"6604b8fea779d44fb5a86243"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getByBlogID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/blog/6604b8fea779d44fb5a86243",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										"6604b8fea779d44fb5a86243"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:55:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "329"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Blog Found\",\n    \"data\": {\n        \"blog_id\": \"6604b8fea779d44fb5a86243\",\n        \"user_id\": \"6604afe899c21bf827e61e0e\",\n        \"title\": \"Passssssssssssssssss\",\n        \"content\": \"akjksaxb akckasbc cjkabcac\",\n        \"createtimestamp\": \"2024-03-28 00:25:34.839 +0000 UTC\",\n        \"updatetimestamp\": \"2024-03-28 11:54:48.209 +0000 UTC\",\n        \"tags\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "createBlog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Third Test\",\r\n    \"content\": \"akjksaxb akckasbc cjkabcac\",\r\n    \"tags\": [\"66055b77a635669ddc5d0cac\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/blog/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "createBlog",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"First Test\",\r\n    \"content\": \"akjksaxb akckasbc cjkabcac\",\r\n    \"tags\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/blog/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:49:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "361"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"success\": true,\n    \"message\": \"Blog Created\",\n    \"data\": {\n        \"blog_id\": \"6605592d08ec373b07b4d8fe\",\n        \"user_id\": \"6604afe899c21bf827e61e0e\",\n        \"title\": \"First Test\",\n        \"content\": \"akjksaxb akckasbc cjkabcac\",\n        \"createtimestamp\": \"2024-03-28 14:49:01.029937 +0300 EAT m=+124.020261401\",\n        \"updatetimestamp\": \"2024-03-28 14:49:01.029937 +0300 EAT m=+124.020261401\",\n        \"tags\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "updateBlog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Passssssssssssssssss\",\r\n    \"content\": \"akjksaxb akckasbc cjkabcac\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/blog/6604b8fea779d44fb5a86243",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								"6604b8fea779d44fb5a86243"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "updateBlog",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Passssssssssssssssss\",\r\n    \"content\": \"akjksaxb akckasbc cjkabcac\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/blog/6604b8fea779d44fb5a86243",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										"6604b8fea779d44fb5a86243"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:56:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "254"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Blog Updated Successfully\",\n    \"data\": {\n        \"blog_id\": \"6604b8fea779d44fb5a86243\",\n        \"user_id\": \"\",\n        \"title\": \"Passssssssssssssssss\",\n        \"content\": \"akjksaxb akckasbc cjkabcac\",\n        \"createtimestamp\": \"\",\n        \"updatetimestamp\": \"\",\n        \"tags\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteBlog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/6604b8fea779d44fb5a86243",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								"6604b8fea779d44fb5a86243"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "deleteBlog",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/blog/6604b8fea779d44fb5a86243",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										"6604b8fea779d44fb5a86243"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:56:37 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "314"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Blog Deleted Successfully\",\n    \"data\": {\n        \"blog_id\": \"6604b8fea779d44fb5a86243\",\n        \"user_id\": \"6604afe899c21bf827e61e0e\",\n        \"title\": \"Passssssssssssssssss\",\n        \"content\": \"akjksaxb akckasbc cjkabcac\",\n        \"createtimestamp\": \"2024-03-28T00:25:34.839Z\",\n        \"updatetimestamp\": \"2024-03-28T11:56:13.998Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "like",
+			"item": [
+				{
+					"name": "getLikesByBlogID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/likes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "likeBlog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/likes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unlikeBlog",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/likes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "getCommentByBlogID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/comments/:comment_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"comments",
+								":comment_id"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								},
+								{
+									"key": "comment_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/comments/:comment_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"comments",
+								":comment_id"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								},
+								{
+									"key": "comment_id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "share",
+			"item": [
+				{
+					"name": "getSharesByBlogID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/shares",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"shares"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shareBlog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/shares",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"shares"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteShare",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/:blog_id/shares/:share_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								":blog_id",
+								"shares",
+								":share_id"
+							],
+							"variable": [
+								{
+									"key": "blog_id"
+								},
+								{
+									"key": "share_id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rating",
+			"item": [
+				{
+					"name": "getRatingsByBlogID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/blog/66055f000140a8ef121204a3/ratings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								"66055f000140a8ef121204a3",
+								"ratings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getRatingsByBlogID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/blog/66055f000140a8ef121204a3/ratings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										"66055f000140a8ef121204a3",
+										"ratings"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 12:18:07 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "298"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Rating Fetched SUccessfully\",\n    \"data\": [\n        {\n            \"rating_id\": \"66055fc0745a3f4e543cf7a9\",\n            \"user_id\": \"6604afe899c21bf827e61e0e\",\n            \"blog_id\": \"66055f000140a8ef121204a3\",\n            \"rating\": 5,\n            \"createtimestamp\": \"2024-03-28T12:17:04.499Z\",\n            \"updatetimestamp\": \"2024-03-28T12:17:04.499Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "rateBlog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/blog/66055f000140a8ef121204a3/ratings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								"66055f000140a8ef121204a3",
+								"ratings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "rateBlog",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rating\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/blog/66055f000140a8ef121204a3/ratings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										"66055f000140a8ef121204a3",
+										"ratings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 12:17:04 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "305"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"success\": true,\n    \"message\": \"Rating Successfull\",\n    \"data\": {\n        \"rating_id\": \"66055fc0745a3f4e543cf7a9\",\n        \"user_id\": \"6604afe899c21bf827e61e0e\",\n        \"blog_id\": \"66055f000140a8ef121204a3\",\n        \"rating\": 5,\n        \"createtimestamp\": \"2024-03-28T15:17:04.4995333+03:00\",\n        \"updatetimestamp\": \"2024-03-28T15:17:04.4995333+03:00\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "updateRating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/blog/66055f000140a8ef121204a3/ratings/66055fc0745a3f4e543cf7a9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"blog",
+								"66055f000140a8ef121204a3",
+								"ratings",
+								"66055fc0745a3f4e543cf7a9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "updateRating",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rating\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/blog/66055f000140a8ef121204a3/ratings/66055fc0745a3f4e543cf7a9",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blog",
+										"66055f000140a8ef121204a3",
+										"ratings",
+										"66055fc0745a3f4e543cf7a9"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 12:21:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "240"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Rating Updated Successfully\",\n    \"data\": {\n        \"rating_id\": \"66055fc0745a3f4e543cf7a9\",\n        \"user_id\": \"\",\n        \"blog_id\": \"\",\n        \"rating\": 3,\n        \"createtimestamp\": \"0001-01-01T00:00:00Z\",\n        \"updatetimestamp\": \"0001-01-01T00:00:00Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"item": [
+				{
+					"name": "getTags",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tag?search=a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getTags",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tag?search=a",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tag"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:59:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "185"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Tags Retrieved Successfully\",\n    \"data\": [\n        {\n            \"_id\": \"66055b4aa635669ddc5d0cab\",\n            \"name\": \"Software\"\n        },\n        {\n            \"_id\": \"66055b77a635669ddc5d0cac\",\n            \"name\": \"Maths\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "getTagByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tag/66055b4aa635669ddc5d0cab",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"66055b4aa635669ddc5d0cab"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getTagByID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tag/66055b4aa635669ddc5d0cab",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tag",
+										"66055b4aa635669ddc5d0cab"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 12:00:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "132"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Tag Retrieved Successfully\",\n    \"data\": {\n        \"_id\": \"66055b4aa635669ddc5d0cab\",\n        \"name\": \"Software\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "createTag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Maths\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "createTag",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Software\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/tag/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tag",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 11:58:02 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 201,\n    \"success\": true,\n    \"message\": \"Tag Created Successfully\",\n    \"data\": {\n        \"_id\": \"66055b4aa635669ddc5d0cab\",\n        \"name\": \"Software\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "updateTagByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"HHHHHHHHHHHH\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/66055b4aa635669ddc5d0cab",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"66055b4aa635669ddc5d0cab"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "updateTagByID",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"HHHHHHHHHHHH\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/tag/66055b4aa635669ddc5d0cab",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tag",
+										"66055b4aa635669ddc5d0cab"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 12:06:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Tag Updated Successfully\",\n    \"data\": {\n        \"_id\": \"66055b4aa635669ddc5d0cab\",\n        \"name\": \"HHHHHHHHHHHH\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteTagByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpa3JlLmFudGVuZWgwMUBnbWFpbCIsImV4cCI6MTcxMjIzMTEzOCwiaWQiOiI2NjA0YWZlODk5YzIxYmY4MjdlNjFlMGUiLCJyb2xlIjoiVVNFUiIsInVzZXJuYW1lIjoiZmlrcmVtYXJpYW0ifQ.FCGMUpjssZ-j7-6Fv8In3ZmGzXqRQxRAv9Qt1rIjlIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tag/66055b4aa635669ddc5d0cab",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"66055b4aa635669ddc5d0cab"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "deleteTagByID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tag/66055b4aa635669ddc5d0cab",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tag",
+										"66055b4aa635669ddc5d0cab"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Mar 2024 12:07:00 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"success\": true,\n    \"message\": \"Tag Deleted Successfully\",\n    \"data\": {\n        \"_id\": \"66055b4aa635669ddc5d0cab\",\n        \"name\": \"HHHHHHHHHHHH\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5555",
+			"type": "string"
+		}
+	]
+}

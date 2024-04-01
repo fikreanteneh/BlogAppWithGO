@@ -6,3 +6,8 @@ type AuthenticatedUser struct {
 	Email string
 	Role string
 }
+
+
+type Token struct {
+	Token string `json:"token"`
+}

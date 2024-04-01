@@ -1,0 +1,829 @@
+{
+    "info": {
+        "name": "Complete Blog App",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "auth",
+            "item": [
+                {
+                    "name": "register",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "adminRegister",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/auth/adminRegister",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "adminRegister"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },{
+            "name": "profile",
+            "item": [
+                {
+                    "name": "getProfile",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateProfile",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteProfile",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updatePassword",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/updatePassword",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                "updatePassword"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateEmail",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/updateEmail",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                "updateEmail"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateUsername",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/updateUsername",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                "updateUsername"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateProfilePicture",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/profile/updateProfilePicture",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "profile",
+                                "updateProfilePicture"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "getUsers",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getUserByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getFollowersByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/followers",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "followers"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "followUserByID",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/follow",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "follow"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "unfollowUserByID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/follow",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "follow"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getFollowingsByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/followings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "followings"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getBlogsByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/blogs",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "blogs"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getSharesByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/shares",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "shares"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getLikesByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/user/:user_id/likes",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "user",
+                                ":user_id",
+                                "likes"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "notification",
+            "item": [
+                {
+                    "name": "getNotification",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/notification/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "notification",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteNotificationByID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/notification/:notification_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "notification",
+                                ":notification_id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "blog",
+            "item": [
+                {
+                    "name": "getAllBlogs",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getByBlogID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "createBlog",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateBlog",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteBlog",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+         {
+            "name": "like",
+            "item": [
+                {
+                    "name": "getLikesByBlogID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/likes",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "likes"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "likeBlog",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/likes",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "likes"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "unlikeBlog",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/likes",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "likes"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+         {
+            "name": "comment",
+            "item": [
+                {
+                    "name": "getCommentByBlogID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/comments",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "comments"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "createComment",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/comments",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "comments"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateComment",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/comments/:comment_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "comments",
+                                ":comment_id"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteComment",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/comments/:comment_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "comments",
+                                ":comment_id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "share",
+            "item": [
+                {
+                    "name": "getSharesByBlogID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/shares",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "shares"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "shareBlog",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/shares",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "shares"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteShare",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/shares/:share_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "shares",
+                                ":share_id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "rating",
+            "item": [
+                {
+                    "name": "getRatingsByBlogID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/ratings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "ratings"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "rateBlog",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/ratings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "ratings"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateRating",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/blog/:blog_id/ratings/:rating_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "blog",
+                                ":blog_id",
+                                "ratings",
+                                ":rating_id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "tag",
+            "item": [
+                {
+                    "name": "getTags",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/tag/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "tag",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getTagByID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/tag/:tag_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "tag",
+                                ":tag_id"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "createTag",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/tag/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "tag",
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateTagByID",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/tag/:tag_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "tag",
+                                ":tag_id"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteTagByID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/tag/:tag_id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "tag",
+                                ":tag_id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

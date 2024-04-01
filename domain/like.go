@@ -1,11 +1,16 @@
 package domain
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 type Like struct {
 	LikeID string `json:"like_id" bson:"_id"`
 	UserID string `json:"user_id" bson:"user_id"`
 	BlogID string `json:"blog_id" bson:"blog_id"`
+	CreatedAt   time.Time `json:"createtimestamp" bson:"createtimestamp"`
+
 }
 
 type LikeRepository interface {

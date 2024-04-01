@@ -4,9 +4,6 @@ import (
 	"BlogApp/config"
 	"BlogApp/domain/model"
 	"BlogApp/domain/usecase"
-	"BlogApp/middleware"
-	"BlogApp/utils"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,101 +23,31 @@ func NewProfileController(environment *config.Environment, profileUseCase *useca
 }
 
 func (p *ProfileController) GetProfile(c *gin.Context) {
-	c.Query("search")
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-	profile, err := p.ProfileUseCase.GetProfile(currUser)
-	if err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-	middleware.SuccessResponseHandler(c, http.StatusOK, "Profile Retrieved Successfully", profile)
-
+	GetHandler(c, p.ProfileUseCase.GetProfile, nil, nil)
 }
 
 func (p *ProfileController) UpdateProfile(c *gin.Context) {
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-
-	var updated model.UserUpdateProfile
-	if err := c.ShouldBindJSON(&updated); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
-
-	profile, err := p.ProfileUseCase.UpdateProfile(&updated, currUser)
-	middleware.SuccessResponseHandler(c, http.StatusOK, "Profile Updated Successfully", profile)
-
-
+	PutHandler(c, p.ProfileUseCase.UpdateProfile, &model.UserUpdateProfile{}, nil)
 }
 
 func (p *ProfileController) DeleteProfile(c *gin.Context) {
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-
-	profile, err := p.ProfileUseCase.DeleteProfile(currUser)
-	if err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-	middleware.SuccessResponseHandler(c, http.StatusOK, "Profile Deleted Successfully", profile)
-
+	DeleteHandler(c, p.ProfileUseCase.DeleteProfile, nil, nil)
 }
 
 func (p *ProfileController) UpdatePassword(c *gin.Context) {
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-	var updated model.UserUpdatePassword
-	if err := c.ShouldBindJSON(&updated); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
-	profile, err := p.ProfileUseCase.UpdatePassword(&updated, currUser)
-	middleware.SuccessResponseHandler(c, http.StatusOK, "Profile Updated Successfully", profile)
-
+	PutHandler(c, p.ProfileUseCase.UpdatePassword, &model.UserUpdatePassword{}, nil)
 }
 
 func (p *ProfileController) UpdateEmail(c *gin.Context) {
-		currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-	var updated model.UserUpdateEmail
-	if err := c.ShouldBindJSON(&updated); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
-	profile, err := p.ProfileUseCase.UpdateEmail(&updated, currUser)
-	middleware.SuccessResponseHandler(c, http.StatusOK, "Profile Updated Successfully", profile)
-
+	PutHandler(c, p.ProfileUseCase.UpdateEmail, &model.UserUpdateEmail{}, nil)
 }
 
 func (p *ProfileController) UpdateUsername(c *gin.Context) {
-	currUser, err := utils.CheckUser(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
-		return
-	}
-	var updated model.UserUpdateUsername
-	if err := c.ShouldBindJSON(&updated); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
-	profile, err := p.ProfileUseCase.UpdateUsername(&updated, currUser)
-	middleware.SuccessResponseHandler(c, http.StatusOK, "Profile Updated Successfully", profile)
-
-
+	PutHandler(c, p.ProfileUseCase.UpdateUsername, &model.UserUpdateUsername{}, nil)
 }
 
+
+//TODO: add the profile picture update method
 func (p *ProfileController) UpdateProfilePicture(c *gin.Context) {
 
 }

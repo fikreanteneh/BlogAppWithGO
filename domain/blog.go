@@ -6,7 +6,7 @@ import (
 )
 
 type Blog struct {
-	BlogID  string `json:"blog_id" bson:"blog_id"`
+	BlogID  string `json:"blog_id" bson:"_id"`
 	UserID  string `json:"user_id" bson:"user_id"`
 	Title   string `json:"title" bson:"title"`
 	Content string `json:"content" bson:"content"`

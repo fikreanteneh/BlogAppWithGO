@@ -5,7 +5,6 @@ import (
 )
 
 type NotificationUseCase interface {
-    GetNotifications(currUser *model.AuthenticatedUser) (*[]*model.NotificationMessage, error)
-    GetNotificationByID(id string, currUser *model.AuthenticatedUser) (*model.NotificationMessage, error)
-    DeleteNotificationByID(id string, currUser *model.AuthenticatedUser) (*model.NotificationMessage, error)
+    GetNotifications(currUser *model.AuthenticatedUser, dto any, param any) (*[]*model.NotificationMessage, string, error)
+    DeleteNotificationByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*model.NotificationMessage, string, error)
 }

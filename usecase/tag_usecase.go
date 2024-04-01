@@ -17,7 +17,6 @@ type TagUseCase struct {
 
 // CreateTag implements usecase.TagUseCase.
 func (t *TagUseCase) CreateTag(currUser *model.AuthenticatedUser, dto *model.TagCreate, param any) (*domain.Tag, string, error) {
-	//TODO : Validation Handling
 	if currUser.Role != "ADMIN" {
 		return nil, "Tag Creation Failed", errors.New("Unauthorized")
 	}
@@ -62,7 +61,6 @@ func (t *TagUseCase) GetTags(currUser *model.AuthenticatedUser, dto any, param *
 
 // UpdateTagByID implements usecase.TagUseCase.
 func (t *TagUseCase) UpdateTagByID(currUser *model.AuthenticatedUser, dto *model.TagCreate, param *model.IdParam) (*domain.Tag, string, error) {
-	//TODO : Validation Handling
 	if currUser.Role != "ADMIN" {
 		return nil, "Tag Creation Failed", errors.New("Unauthorized")
 	}

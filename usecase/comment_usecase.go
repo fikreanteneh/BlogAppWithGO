@@ -18,7 +18,6 @@ type CommentUseCase struct {
 
 // CreateCommentByBlogID implements usecase.CommentUseCase.
 func (c *CommentUseCase) CreateCommentByBlogID(currUser *model.AuthenticatedUser, dto *model.CommentCreate, param *model.IdParam) (*domain.Comment, string, error) {
-	//TODO : Validation Handling
 	createdComment, err := c.commentRepository.Create(c.context, &domain.Comment{
 		UserID:  currUser.UserID,
 		BlogID:  param.ID,
@@ -60,7 +59,6 @@ func (c *CommentUseCase) GetCommentsByBlogID(currUser *model.AuthenticatedUser, 
 
 // UpdateCommentByBlogID implements usecase.CommentUseCase.
 func (c *CommentUseCase) UpdateCommentByID(currUser *model.AuthenticatedUser, dto *model.CommentCreate, param *model.IdParam) (*domain.Comment, string, error) {
-	//TODO : Validation Handling
 	comment, err := c.commentRepository.GetByID(c.context, param.ID)
 	if err != nil {
 		return nil, "Comment Not Found", errors.New("Comment Not Found")

@@ -51,7 +51,6 @@ func (a *AuthUseCase) AdminRegister(currUser *model.AuthenticatedUser, userCreat
 
 // Login implements usecase.AuthUseCase.
 func (a *AuthUseCase) Login(currUser *model.AuthenticatedUser, userLogin *model.UserLogin, parma any) (*model.Token, string, error) {
-	//TODO : Validation Handling
 	user, err := a.UserRepository.GetByUsername(a.context, userLogin.Username)
 	if err != nil {
 		return nil, "Login Unseccessfull",err
@@ -73,7 +72,6 @@ func (a *AuthUseCase) Login(currUser *model.AuthenticatedUser, userLogin *model.
 
 // Register implements usecase.AuthUseCase.
 func (a *AuthUseCase) Register(currUser *model.AuthenticatedUser, userCreate *model.UserCreate, param any) (*model.UserInfo, string, error) {
-	//TODO : Validation Handling
 
 	password, err := utils.EncryptPassword(userCreate.Password)
 	if err != nil {

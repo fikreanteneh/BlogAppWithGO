@@ -25,7 +25,6 @@ type BlogUseCase struct {
 
 // CreateBlog implements usecase.BlogUseCase.
 func (b *BlogUseCase) CreateBlog(currUser *model.AuthenticatedUser, dto *model.BlogCreate, param any) (*model.BlogInfo, string, error) {
-	//TODO : Validation Handling
 	createdBlog, err := b.blogRepository.Create(b.context, &domain.Blog{
 		UserID:  currUser.UserID,
 		Title:   dto.Title,
@@ -145,7 +144,6 @@ func (b *BlogUseCase) GetBlogs(currUser *model.AuthenticatedUser, dto any, param
 
 // UpdateBlogByID implements usecase.BlogUseCase.
 func (b *BlogUseCase) UpdateBlogByID(currUser *model.AuthenticatedUser, dto *model.BlogUpdate, param *model.IdParam) (*model.BlogInfo, string, error) {
-	//TODO : Validation Handling
 	blog, err := b.blogRepository.GetByID(b.context, param.ID)
 	if err != nil {
 		return nil, "Blog Not Found", err

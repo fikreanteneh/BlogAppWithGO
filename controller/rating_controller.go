@@ -28,10 +28,11 @@ func (rc *RatingController) RateBlog(c *gin.Context) {
 	PostHandler(c, rc.ratingUseCase.RateBlogByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("blog_id")})
 }
 
-func (rc *RatingController) UpdateRating(c *gin.Context) {
-	PutHandler(c, rc.ratingUseCase.UpdateRatingByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("rating_id")})
-}
-
 func (rc *RatingController) DeleteRating(c *gin.Context) {
 	DeleteHandler(c, rc.ratingUseCase.DeleteRatingByID, nil, &model.IdParam{ID: c.Param("rating_id")})
+}
+
+//add a controller to update a rating for a given post id
+func (rc *RatingController) UpdateRating(c *gin.Context) {
+	PutHandler(c, rc.ratingUseCase.UpdateRatingByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("rating_id")})
 }

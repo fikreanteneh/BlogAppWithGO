@@ -21,7 +21,6 @@ type UserUseCase struct {
 
 // FollowUserByID implements usecase.UserUseCase.
 func (u *UserUseCase) FollowUserByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Follow, string, error) {
-	//TODO : Validation Handling
 	follow, err := u.followRepository.Create(u.context, &domain.Follow{
 		FollowedID: param.ID,
 		FollowerID: currUser.UserID,
@@ -149,7 +148,6 @@ func (u *UserUseCase) GetUsers(currUser *model.AuthenticatedUser, dto any, param
 
 // UnfollowUserByID implements usecase.UserUseCase.
 func (u *UserUseCase) UnfollowUserByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Follow, string, error) {
-	//TODO : Validation Handling
 	follow, err := u.followRepository.Delete(u.context, &domain.Follow{
 		FollowedID: param.ID,
 		FollowerID: currUser.UserID,

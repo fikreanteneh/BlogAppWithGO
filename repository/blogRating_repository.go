@@ -120,6 +120,8 @@ func (b *BlogRatingRepository) GetRatingByUserID(c context.Context, userID strin
 	return &blogRatings, nil
 }
 
+
+// add the update rating method
 // UpdateRating implements domain.BlogRatingRepository.
 func (b *BlogRatingRepository) UpdateRating(c context.Context, rating *domain.BlogRating) (*domain.BlogRating, error) {
 	filter := bson.M{"_id": rating.RatingID}

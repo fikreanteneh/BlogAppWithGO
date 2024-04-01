@@ -43,7 +43,6 @@ func (u *UserUseCase) GetBlogsByID(currUser *model.AuthenticatedUser, dto any, p
 
 // GetFollowersByID implements usecase.UserUseCase.
 func (u *UserUseCase) GetFollowersByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*[]*model.UserInfo, string, error) {
-	//TODO: Aggregation
 	follows , err := u.followRepository.GetByFollowedID(u.context, param.ID)
 	if err != nil {
 		return nil, "", err

@@ -64,29 +64,41 @@ func (b *BlogUseCase) CreateBlog(currUser *model.AuthenticatedUser, dto *model.B
 	}, "Blog Created",nil
 }
 
-// DeleteBlogByID implements usecase.BlogUseCase.
-func (b *BlogUseCase) DeleteBlogByID(currUser *model.AuthenticatedUser, dto any, param *model.IdParam) (*domain.Blog, string, error) {
-	blog, err := b.blogRepository.GetByID(b.context, param.ID)
+// DeleteBlogByID deletes a blog by ID.
+func (b *BlogUseCase) DeleteBlogByID(currUser *model.AuthenticatedUser, dto interface{}, param *model.IdParam) (*domain.Blog, string, error) {
+    blog, err := b.blogRepository.GetByID(b.context, param.ID)
+    if err != nil {
+        return nil, "Blog Not Found", err
+    }
+    
+    if currUser.Role != "ADMIN" || currUser.UserID != blog.UserID {
+        return nil, "Unauthorized", errors.New("Unauthorized")
+    }
 
-	if err != nil {
-		return nil, "Blog Not Found", err
-	}
-	if currUser.Role != "ADMIN" || currUser.UserID != blog.UserID {
-		return nil, "Unauthorized", errors.New("Unauthorized")
-	}
-
-	b.blogTagRepository.TagDeleteByBlogID(b.context, blog.BlogID)
-	b.likeRepository.LikeDeleteByBlogID(b.context, blog.BlogID)
-	b.ratingRepository.DeleteByBlogID(b.context, blog.BlogID)
-	b.commentRepository.DeleteByBlogID(b.context, blog.BlogID)
-	b.shareRepository.DeleteByBlogID(b.context, blog.BlogID)
-	
-	deletedBlog, err := b.blogRepository.Delete(b.context, param.ID)
-	if err != nil {
-		return nil,"Blog Deletion UNsuccessful", err
-	}
-	return deletedBlog, "Blog Deleted Successfully", nil
-
+    // Delete related entities
+    if err := b.blogTagRepository.TagDeleteByBlogID(b.context, blog.BlogID); err != nil {
+        return nil, "Error deleting related tags", err
+    }
+    if err := b.likeRepository.LikeDeleteByBlogID(b.context, blog.BlogID); err != nil {
+        return nil, "Error deleting related likes", err
+    }
+    if err := b.ratingRepository.RatingDeleteByBlogID(b.context, blog.BlogID); err != nil {
+        return nil, "Error deleting related ratings", err
+    }
+    if err := b.commentRepository.CommentDeleteByBlogID(b.context, blog.BlogID); err != nil {
+        return nil, "Error deleting related comments", err
+    }
+    if err := b.shareRepository.DeleteShareByBlogID(b.context, blog.BlogID); err != nil {
+        return nil, "Error deleting related shares", err
+    }
+    
+    // Delete the blog
+    deletedBlog, err := b.blogRepository.Delete(b.context, param.ID)
+    if err != nil {
+        return nil, "Blog Deletion Unsuccessful", err
+    }
+    
+    return deletedBlog, "Blog Deleted Successfully", nil
 }
 
 // GetBlogByID implements usecase.BlogUseCase.

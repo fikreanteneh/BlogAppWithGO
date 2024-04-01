@@ -132,3 +132,9 @@ func (b *BlogRatingRepository) UpdateRating(c context.Context, rating *domain.Bl
 
 	return rating, nil
 }
+
+func (b BlogRatingRepository) RatingDeleteByBlogID(c context.Context, blogID string)(error){
+	filter := bson.M{"blog_id": blogID}
+	_, err := b.database.Collection("comments").DeleteMany(c, filter)
+	return err
+}

@@ -30,5 +30,4 @@ type ProfileUseCase interface {
 		currUser *model.AuthenticatedUser, 
 		updated *model.UserUpdateEmail,
 		param any) (*model.UserInfo, string, error)
-	//TODO: add the profile picture update method
 }

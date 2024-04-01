@@ -16,10 +16,11 @@ type BlogRating struct {
 
 type BlogRatingRepository interface {
 	InsertRating(c context.Context, rating *BlogRating) (*BlogRating, error)
-	//create a blog rating and insert it to the database
 	GetRatingByBlogID(c context.Context, blogID string) (*[]*BlogRating, error)
 	GetRatingByUserID(c context.Context, userID string) (*[]*BlogRating, error)
-	UpdateRating(c context.Context, rating *BlogRating) (*BlogRating, error)
 	DeleteRating(c context.Context, ratingID string) (*BlogRating, error)
 	GetRatingByID(c context.Context, ratingID string) (*BlogRating, error)
+
+	//add interface for the blog rating update repository
+	UpdateRating(c context.Context, rating *BlogRating) (*BlogRating, error)
 }

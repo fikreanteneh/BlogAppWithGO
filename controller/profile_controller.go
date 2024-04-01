@@ -47,7 +47,4 @@ func (p *ProfileController) UpdateUsername(c *gin.Context) {
 }
 
 
-//TODO: add the profile picture update method
-func (p *ProfileController) UpdateProfilePicture(c *gin.Context) {
-
-}
+// 

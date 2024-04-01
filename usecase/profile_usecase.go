@@ -47,23 +47,79 @@ func (p *ProfileUseCase) GetProfile(currUser *model.AuthenticatedUser, dto any, 
 
 // UpdateEmail implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdateEmail(currUser *model.AuthenticatedUser, updated *model.UserUpdateEmail, param any) (*model.UserInfo, string, error) {
-    panic("unimplented")
+	//TODO: Validation
+    user, err := p.UserRepository.GetById(p.context, currUser.UserID)
+	if err != nil {
+		return nil, "", err
+	}
+	user.Email = updated.Email
+	updatedUser, err := p.UserRepository.UpdateEmail(p.context, user)
+	if err != nil {
+		return nil, "", err
+	}
+	return &model.UserInfo{
+		Username: updatedUser.Username,
+		Name: updatedUser.Name,
+		Bio: updatedUser.Bio,
+	}, "Email updated successfully", nil
 }
 
 // UpdatePassword implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdatePassword(currUser *model.AuthenticatedUser, updated *model.UserUpdatePassword, param any) (*model.UserInfo, string, error) {
-    panic("unimplented")
-
+	//TODO: Validation
+	user, err := p.UserRepository.GetById(p.context, currUser.UserID)
+	if err != nil {
+		return nil, "", err
+	}
+	user.Password = updated.Password
+	updatedUser, err := p.UserRepository.UpdatePassword(p.context, user)
+	if err != nil {
+		return nil, "", err
+	}
+	return &model.UserInfo{
+		Username: updatedUser.Username,
+		Name: updatedUser.Name,
+		Bio: updatedUser.Bio,
+	}, "Password updated successfully", nil
 }
 
 // UpdateProfile implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdateProfile(currUser *model.AuthenticatedUser, updated *model.UserUpdateProfile, param any) (*model.UserInfo, string, error) {
-    panic("unimplented")
+    	//TODO: Validation
+	user, err := p.UserRepository.GetById(p.context, currUser.UserID)
+	if err != nil {
+		return nil, "", err
+	}
+	updated.Bio = updated.Bio
+	updated.Name = updated.Name
+	updatedUser, err := p.UserRepository.UpdateProfile(p.context, user)
+	if err != nil {
+		return nil, "", err
+	}
+	return &model.UserInfo{
+		Username: updatedUser.Username,
+		Name: updatedUser.Name,
+		Bio: updatedUser.Bio,
+	}, "Password updated successfully", nil
 }
 
 // UpdateUsername implements usecase.ProfileUseCase.
 func (p *ProfileUseCase) UpdateUsername(currUser *model.AuthenticatedUser, updated *model.UserUpdateUsername, param any) (*model.UserInfo, string, error) {
-    panic("unimplented")
+    	//TODO: Validation
+	user, err := p.UserRepository.GetById(p.context, currUser.UserID)
+	if err != nil {
+		return nil, "", err
+	}
+	user.Username = updated.Username
+	updatedUser, err := p.UserRepository.UpdateUsername(p.context, user)
+	if err != nil {
+		return nil, "", err
+	}
+	return &model.UserInfo{
+		Username: updatedUser.Username,
+		Name: updatedUser.Name,
+		Bio: updatedUser.Bio,
+	}, "Password updated successfully", nil
 
 }
 

@@ -59,6 +59,7 @@ func (r *RatingUseCase) RateBlogByID(currUser *model.AuthenticatedUser, dto *mod
 }
 
 // UpdateRatingByBlogID implements usecase.RatingUseCase.
+// UpdateRating Of UseCase Implementation
 func (r *RatingUseCase) UpdateRatingByID(currUser *model.AuthenticatedUser, dto *model.RatingCreate, param *model.IdParam) (*domain.BlogRating, string, error) {
 	updatedRating, err := r.ratingRepository.UpdateRating(r.context, &domain.BlogRating{
 		RatingID: param.ID,

@@ -28,6 +28,7 @@ func (rc *RatingController) RateBlog(c *gin.Context) {
 	PostHandler(c, rc.ratingUseCase.RateBlogByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("blog_id")})
 }
 
+// UpdateRating Of Controller
 func (rc *RatingController) UpdateRating(c *gin.Context) {
 	PutHandler(c, rc.ratingUseCase.UpdateRatingByID, &model.RatingCreate{}, &model.IdParam{ID: c.Param("rating_id")})
 }

@@ -121,6 +121,7 @@ func (b *BlogRatingRepository) GetRatingByUserID(c context.Context, userID strin
 }
 
 // UpdateRating implements domain.BlogRatingRepository.
+// UpdateRating Of Repository Implementation
 func (b *BlogRatingRepository) UpdateRating(c context.Context, rating *domain.BlogRating) (*domain.BlogRating, error) {
 	filter := bson.M{"_id": rating.RatingID}
 	update := bson.M{"$set": bson.M{"rating": rating.Rating, "updatetimestamp": time.Now()}}

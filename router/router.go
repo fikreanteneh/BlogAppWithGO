@@ -105,7 +105,8 @@ func Setup(env *config.Environment, timeout time.Duration, db *mongo.Database, g
 	blogRouter.GET("/:blog_id/ratings", ratingController.GetRatingsByBlogID)
 	blogRouter.POST("/:blog_id/ratings", middleware.AuthMiddleware(env.JwtSecret), ratingController.RateBlog)
 	blogRouter.PUT("/:blog_id/ratings/:rating_id",middleware.AuthMiddleware(env.JwtSecret), ratingController.UpdateRating)
-	//TODO: Implement DeleteBlogRating
+	blogRouter.DELETE("/:blog_id/ratings/:rating_id", middleware.AuthMiddleware(env.JwtSecret), ratingController.DeleteRating)
+
 
 	tagRouter.GET("/", tagController.GetTags)
 	tagRouter.GET("/:tag_id", tagController.GetTagByID)
